@@ -16,6 +16,7 @@ logger = Logger(__name__)
 
 class PluginsManager:
     plugins: dict = {}
+    plugin_name: str = None
 
     def __init__(self, path: str = plugins_directory):
         """
@@ -23,7 +24,6 @@ class PluginsManager:
         :return: None
         """
         self.path = Path.replace(path)
-        self.load_plugins()
 
     def load_plugins(self):
         """
@@ -35,6 +35,7 @@ class PluginsManager:
                 logger.warning(f"Plugin `{plugin}` is disabled")
                 continue
             try:
+                self.plugin_name = plugin
                 plugin_distance = __import__(f"{plugin}")
                 logger.info(plugin_distance.meta_data)
                 with plugin_distance.Controller():

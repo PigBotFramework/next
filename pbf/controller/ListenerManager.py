@@ -68,8 +68,3 @@ class ListenerManager:
         ListenerManager.set_listener("notice", notice_listeners)
         ListenerManager.set_listener("request", request_listeners)
         ListenerManager.set_listener("meta", meta_listeners)
-
-    @staticmethod
-    def handle(event):
-        logger.info(f"Handling event: {event}")
-        listeners = ListenerManager.get_listeners_by_type(event["type"])

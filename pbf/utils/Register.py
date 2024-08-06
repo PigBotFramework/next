@@ -1,8 +1,7 @@
 from functools import wraps
 from typing import List
 
-from .. import logger
-from .. import ListenerManager
+from .. import logger, ListenerManager, pluginsManager
 
 
 class Base:
@@ -21,8 +20,8 @@ class Base:
             setattr(self, key, value)
 
     def __call__(self, func):
-        logger.debug(f"Registering {self.type} {self.name}")
-        ListenerManager.add_listener(self.type, self.name, self)
+        logger.debug(f"Registering {self.type} `{self.name}`")
+        ListenerManager.add_listener(self.type, pluginsManager.plugin_name, self)
         self.func = func
 
         @wraps(func)

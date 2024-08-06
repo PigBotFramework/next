@@ -45,7 +45,7 @@ class Debug:
 
         start(TempDriver())
 
-        Handler("""
+        handler = Handler("""
         {
             "id": "b6e65187-5ac0-489c-b431-53078e9d2bbb",
             "self": {
@@ -69,4 +69,5 @@ class Debug:
             "user_id": "123456788",
             "qq.nickname": "海阔天空"
         }
-        """).classify()
+        """)
+        handler.handle()
