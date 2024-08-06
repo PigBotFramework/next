@@ -33,6 +33,3 @@ def debug():
     func: Command = ListenerManager.get_listeners_by_plugin_name("test")[0]
     print(func.name)
     func.func()
-
-    # 如何统一Register.py和ListenerManager.py的命名空间？
-    # 答：将ListenerManager.py中的ListenerManager类改为ListenerManager类，然后在Register.py中导入ListenerManager类
