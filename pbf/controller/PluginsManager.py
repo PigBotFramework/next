@@ -4,10 +4,12 @@ try:
     from ..config import plugins_directory, plugins_disabled
     from ..utils.Logging import Logger
     from ..utils import Path
+    from .. import ListenerManager
 except ImportError:
     from pbf.config import plugins_directory, plugins_disabled
     from pbf.utils.Logging import Logger
     from pbf.utils import Path
+    from pbf import ListenerManager
 
 logger = Logger(__name__)
 
@@ -39,8 +41,8 @@ class PluginsManager:
                     pass
                 self.plugins[plugin] = plugin_distance
                 logger.info(f"Plugin `{plugin}` loaded")
-            except ImportError:
-                logger.error(f"Plugin `{plugin}` failed to load")
+            except ImportError as e:
+                logger.error(f"Plugin `{plugin}` failed to load: {e}")
             except Exception as e:
                 logger.error(f"Plugin `{plugin}` failed to load: {e}")
 
@@ -51,6 +53,7 @@ class PluginsManager:
         """
         if plugin in self.plugins:
             self.plugins.pop(plugin)
+            ListenerManager.remove_listener_by_plugin_name(plugin)
             logger.info(f"Plugin `{plugin}` disabled")
         else:
             logger.warning(f"Plugin `{plugin}` not found")

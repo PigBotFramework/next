@@ -8,7 +8,7 @@
 
 ## 介绍
 PBF是一款基于Python的机器人框架，旨在为开发者提供一个简单、易用、高效的机器人开发框架。  
-PBF已经经历过从诞生到v4.0.0的多次迭代，现在我们将迎来一个全新的版本`PBF Next`。  
+PBF已经经历过从诞生到v4的多次迭代，现在我们将迎来一个全新的版本`PBF Next`。  
 PBF Next不再针对特定的OneBot实现进行适配，而是根据OneBot标准进行设计，使得PBF Next可以适配更多的OneBot实现。
 您可以通过[其他项目](https://onebot.dev/ecosystem.html)将PBF接入诸如Kook、Discord、Telegram等平台
 

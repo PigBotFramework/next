@@ -1,3 +1,7 @@
+from ..utils.Logging import Logger
+
+logger = Logger(__name__)
+
 command_listeners = {}
 message_listeners = {}
 notice_listeners = {}
@@ -54,7 +58,18 @@ class ListenerManager:
             return []
 
     @staticmethod
-    def handle(event_type, event):
-        pass
+    def remove_listener_by_plugin_name(plugin_name):
+        global command_listeners, message_listeners, notice_listeners, request_listeners, meta_listeners
+        for listeners in [command_listeners, message_listeners, notice_listeners, request_listeners, meta_listeners]:
+            if plugin_name in listeners:
+                listeners.pop(plugin_name)
+        ListenerManager.set_listener("command", command_listeners)
+        ListenerManager.set_listener("message", message_listeners)
+        ListenerManager.set_listener("notice", notice_listeners)
+        ListenerManager.set_listener("request", request_listeners)
+        ListenerManager.set_listener("meta", meta_listeners)
 
-
+    @staticmethod
+    def handle(event):
+        logger.info(f"Handling event: {event}")
+        listeners = ListenerManager.get_listeners_by_type(event["type"])

@@ -4,6 +4,7 @@ from .utils import Path
 from .controller.ListenerManager import ListenerManager
 from .controller.PluginsManager import PluginsManager
 from .utils.Logging import Logger
+from .controller.Handler import Handler
 
 Path.make_sure_path_exists(logs_directory, replace=True)
 Path.make_sure_path_exists(plugins_directory, replace=True)
@@ -21,15 +22,51 @@ def start(driver):
     driver.run()
 
 
-def debug():
-    from pbf.utils.Register import Command
+class Debug:
+    @staticmethod
+    def commandRegister():
+        from pbf.utils.Register import Command
 
-    @Command(name="test", description="test command")
-    def test_command():
-        logger.debug("test command")
+        @Command(name="test", description="test command")
+        def test_command():
+            logger.debug("test command")
 
-    logger.debug(str(ListenerManager.get_listeners_by_type("command")))
-    logger.debug(ListenerManager.get_listeners_by_plugin_name("test"))
-    func: Command = ListenerManager.get_listeners_by_plugin_name("test")[0]
-    print(func.name)
-    func.func()
+        logger.debug(str(ListenerManager.get_listeners_by_type("command")))
+        logger.debug(ListenerManager.get_listeners_by_plugin_name("test"))
+        func: Command = ListenerManager.get_listeners_by_plugin_name("test")[0]
+        print(func.name)
+        func.func()
+
+    @staticmethod
+    def pluginLoad():
+        class TempDriver:
+            def run(self):
+                pass
+
+        start(TempDriver())
+
+        Handler("""
+        {
+            "id": "b6e65187-5ac0-489c-b431-53078e9d2bbb",
+            "self": {
+                "platform": "qq",
+                "user_id": "123234"
+            },
+            "time": 1632847927.599013,
+            "type": "message",
+            "detail_type": "private",
+            "sub_type": "",
+            "message_id": "6283",
+            "message": [
+                {
+                    "type": "text",
+                    "data": {
+                        "text": "test asdasd"
+                    }
+                }
+            ],
+            "alt_message": "test asdasd",
+            "user_id": "123456788",
+            "qq.nickname": "海阔天空"
+        }
+        """).classify()
