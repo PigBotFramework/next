@@ -1,5 +1,6 @@
 import pathlib
 import os
+import pip
 
 from apscheduler.schedulers.background import BackgroundScheduler
 
@@ -19,6 +20,10 @@ class Utils:
     @staticmethod
     def print(*args, **kwargs):
         print("PBF Server:", *args, **kwargs)
+
+    @staticmethod
+    def installPackage(package: str):
+        pip.main(["install", package])
 
 
 class Scheduler:
