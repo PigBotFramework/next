@@ -1,0 +1,11 @@
+# 未实现功能
+- ./controller/Banwords -> plugin/Banwords
+- ./controller/Client
+- ./controller/Menu -> plugin/Menu
+- ./model
+- ./statement
+- ./driver/Fastapi
+- ./utils/CQCode
+- ./utils/Coin -> plugin/Coin
+- ./utils/Pillow -> plugin/Pillow
+- ./utils/nsfw -> plugin/nsfw
