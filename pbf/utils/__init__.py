@@ -46,7 +46,7 @@ class MetaData:
     name: str = "PBFPlugin"
     version: str = "1.0.0"
     description: str = "PBF Plugin"
-    author: str = "you"
+    author: str = "author"
     license: str = "MIT"
     keywords: list = ["pbf", "plugin"]
     readme: str = """

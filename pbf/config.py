@@ -7,13 +7,19 @@ version_name = "5.0.0"
 user_directory = ".pbf"
 
 # Database
-sql_type = "sqlite"
-sql_mysql_host = "localhost"
-sql_mysql_user = "root"
-sql_mysql_password = "password"
-sql_database = "pbf"
-sql_prefix = "pbf_"
-sql_sqlite_path = "{home}/pbf.db"
+
+# To use mysql database
+# from .controller.SQL.Mysql import startup
+# sql_driver = startup(
+#     host="localhost",
+#     user="root",
+#     password="your password",
+#     database="pbf"
+# )
+
+# To use sqlite database
+from .controller.SQL.Sqlite import startup
+sql_driver = startup("{home}/data.db")
 
 # Connect
 access_token = None
