@@ -1,6 +1,6 @@
 pytz~=2024.1
+pip~=24.0
 apscheduler~=3.10.4
-requests~=2.32.3
 uvicorn~=0.30.5
-pyyaml~=6.0.1
 fastapi~=0.112.0
+pymysql~=1.1.1

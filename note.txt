@@ -9,3 +9,5 @@
 - ./utils/Coin -> plugin/Coin
 - ./utils/Pillow -> plugin/Pillow
 - ./utils/nsfw -> plugin/nsfw
+- Web GUI
+- Other Plugins
