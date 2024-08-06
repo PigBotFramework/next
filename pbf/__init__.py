@@ -61,11 +61,11 @@ class Debug:
                 {
                     "type": "text",
                     "data": {
-                        "text": "test asdasd"
+                        "text": "test arg1"
                     }
                 }
             ],
-            "alt_message": "test asdasd",
+            "alt_message": "test arg1",
             "user_id": "123456788",
             "qq.nickname": "海阔天空"
         }

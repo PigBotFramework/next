@@ -7,7 +7,7 @@ from .. import logger, ListenerManager, pluginsManager
 class Base:
     name: str = 'Command name'
     description: str = 'Command description'
-    permission: str = 'cmd.permission.cmdname'
+    permission: str = 'cmd.permission.name'
     usage: str = 'Command usage'
     alias: List[str] = []
     hidden: bool = False

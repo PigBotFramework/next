@@ -9,7 +9,7 @@ logger = Logger(__name__)
 class Handler:
     def __init__(self, event_data: str) -> None:
         self.data = json.loads(event_data)
-        self.event: Event = None
+        self.event: Event = Event()
         self.classify()
         logger.info(f"{self.event.sender.get('nickname', '未知昵称')}({self.event.user_id}): {self.event.raw_message}")
 

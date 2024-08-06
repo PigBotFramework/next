@@ -10,6 +10,8 @@ class Event:
     message: list = None
     raw_message: str = None
 
-    def __init__(self, event_data: dict) -> None:
+    def __init__(self, event_data=None) -> None:
+        if event_data is None:
+            event_data = {}
         for key, value in event_data.items():
             setattr(self, key, value)
