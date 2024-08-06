@@ -55,6 +55,22 @@ class PluginsManager:
         else:
             logger.warning(f"Plugin `{plugin}` not found")
 
+    def enable(self, plugin: str):
+        """
+        :param plugin: Plugin name
+        :return: None
+        """
+        try:
+            plugin_distance = __import__(f"{plugin}")
+            with plugin_distance.Controller():
+                pass
+            self.plugins[plugin] = plugin_distance
+            logger.info(f"Plugin `{plugin}` enabled")
+        except ImportError:
+            logger.error(f"Plugin `{plugin}` failed to enable")
+        except Exception as e:
+            logger.error(f"Plugin `{plugin}` failed to enable: {e}")
+
 
 if __name__ == "__main__":
     PluginsManager()

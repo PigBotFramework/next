@@ -1,7 +1,5 @@
 import pathlib
 import os
-from functools import wraps
-from typing import List
 
 from apscheduler.schedulers.background import BackgroundScheduler
 
@@ -73,25 +71,6 @@ class PBFPlugin:
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         pass
-
-
-class RegCmd:
-    name: str = 'Command name'
-    description: str = 'Command description'
-    permission: str = 'cmd.permission.cmdname'
-    usage: str = 'Command usage'
-    alias: List[str] = []
-    hidden: bool = False
-    enabled: bool = True
-    type: str = 'command'
-    mode: str = '机器人操作'
-
-    def __call__(self, func):
-        @wraps(func)
-        def wrapper(*args, **kwargs):
-            return func(*args, **kwargs)
-
-        return wrapper
 
 
 if __name__ == "__main__":
