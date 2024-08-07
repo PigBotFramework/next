@@ -73,8 +73,12 @@ class Debug:
         handler.handle()
 
     @staticmethod
-    def sqlTest():
-        sql_driver.execute("CREATE TABLE IF NOT EXISTS test (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)")  # 创建表
-        sql_driver.execute("INSERT INTO test (name) VALUES ('test')")  # 插入数据
-        print(sql_driver.execute("SELECT * FROM test"))  # 查询数据
-        sql_driver.commit()  # 提交
+    def statementTest():
+        from .statement.AtStatement import AtStatement
+        statement = AtStatement(2417481092)
+        logger.debug(str(statement))
+
+        from .utils.CQCode import CQCode
+        cqcode = CQCode("[CQ:at,qq=2417481092]")
+        logger.debug(str(cqcode.get("qq")))
+        logger.debug(str(cqcode.toStatement()))

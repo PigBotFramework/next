@@ -9,17 +9,19 @@ user_directory = ".pbf"
 # Database
 
 # To use mysql database
-# from .controller.SQL.Mysql import startup
-# sql_driver = startup(
+# from peewee import MySQLDatabase
+# sql_driver = MySQLDatabase(
+#     "pbf",
 #     host="localhost",
 #     user="root",
-#     password="your password",
-#     database="pbf"
+#     password="password",
+#     port=3306
 # )
 
 # To use sqlite database
-from .controller.SQL.Sqlite import startup
-sql_driver = startup("{home}/data.db")
+from peewee import SqliteDatabase
+from .utils import Path
+sql_driver = SqliteDatabase(Path.replace("{home}/data.db"))
 
 # Connect
 access_token = None
