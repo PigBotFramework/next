@@ -24,7 +24,9 @@ from .utils import Path
 sql_driver = SqliteDatabase(Path.replace("{home}/data.db"))
 
 # Connect
-access_token = None
+ob_access_token = "replace it"
+ob_uri = "http://localhost"
+ob_version = "v11"  # or "v12"
 
 # Plugins
 plugins_directory = "{home}/plugins"

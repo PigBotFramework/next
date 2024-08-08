@@ -82,3 +82,15 @@ class Debug:
         cqcode = CQCode("[CQ:at,qq=2417481092]")
         logger.debug(str(cqcode.get("qq")))
         logger.debug(str(cqcode.toStatement()))
+
+    @staticmethod
+    def clientTest():
+        from .controller.Client import Client
+        client = Client()
+        # logger.debug(client.request("send_msg", {"group_id": 871260826, "message": "test"}))
+
+        from .controller.Client import Msg
+        from .controller.Data import Event
+        from .statement.FaceStatement import FaceStatement
+        msg = Msg("asfsdaf", FaceStatement(123), event=Event(**{"group_id": 871260826}))
+        logger.debug(msg.send(image=False))

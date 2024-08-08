@@ -7,10 +7,11 @@ class Event:
     detail_type: str = None
     sender: dict = None
     user_id: int = None
+    group_id: int = None
     message: list = None
     raw_message: str = None
 
-    def __init__(self, event_data=None) -> None:
+    def __init__(self, **event_data) -> None:
         if event_data is None:
             event_data = {}
         for key, value in event_data.items():

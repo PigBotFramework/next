@@ -37,7 +37,7 @@ class Handler:
             }
             del self.data["qq.nickname"]
 
-        event = Event(self.data)
+        event = Event(**self.data)
         self.event = event
         return event
 

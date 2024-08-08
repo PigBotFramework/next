@@ -50,6 +50,7 @@ class Path:
 class MetaData:
     name: str = "PBFPlugin"
     version: str = "1.0.0"
+    versionCode: int = 1
     description: str = "PBF Plugin"
     author: str = "author"
     license: str = "MIT"
@@ -65,17 +66,6 @@ class MetaData:
 
     def __str__(self) -> str:
         return f"{self.name} v{self.version} by {self.author}"
-
-
-class PBFPlugin:
-    def __init__(self) -> None:
-        pass
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        pass
 
 
 if __name__ == "__main__":
