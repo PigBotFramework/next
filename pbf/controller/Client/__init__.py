@@ -1,4 +1,4 @@
-from ... import config, logger
+from ... import config, logger, pluginsManager
 from ..Data import Event
 from ...statement.TextStatement import TextStatement
 from ...utils.CQCode import CQCode
@@ -70,7 +70,7 @@ class Msg(Client):
             data = self.send_to(group_id=self.event.group_id)
         else:
             data = self.send_to(user_id=self.event.user_id)
-        if data.get("status") == "success":
+        if data.get("status") == "ok" or data.get("status") == "success":
             return data
         elif data.get("status") == "failed" and retry:
             logger.warning("Failed to send message, retrying...")
@@ -82,7 +82,12 @@ class Msg(Client):
         return data
 
     def toImage(self):
-        logger.debug("Converting to image...")
+        if not pluginsManager.hasApi("Pillow"):
+            logger.error("Pillow not found")
+            return {"status": "failed", "message": "Pillow not found"}
+        Pillow = pluginsManager.require("Pillow")
+        params = self.getParam()
+        Pillow.hello()
 
     def send_to(self, user_id: int = None, group_id: int = None):
         params = self.getParam()

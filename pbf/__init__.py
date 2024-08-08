@@ -66,7 +66,7 @@ class Debug:
                 }
             ],
             "alt_message": "test arg1",
-            "user_id": "123456788",
+            "user_id": "sasdad",
             "qq.nickname": "海阔天空"
         }
         """)

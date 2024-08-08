@@ -24,7 +24,7 @@ from .utils import Path
 sql_driver = SqliteDatabase(Path.replace("{home}/data.db"))
 
 # Connect
-ob_access_token = "replace it"
+ob_access_token = "access_token"
 ob_uri = "http://localhost"
 ob_version = "v11"  # or "v12"
 
