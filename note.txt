@@ -1,10 +1,9 @@
 # 未实现功能
 - ./controller/Banwords -> plugin/Banwords
-- ./controller/Client
 - ./controller/Menu -> plugin/Menu
-- ./driver/Fastapi
 - ./utils/Coin -> plugin/Coin
-- ./utils/Pillow -> plugin/Pillow
+- ./utils/Pillow -> plugin/Pillow   and ./controller/Client.Msg.toImage
 - ./utils/nsfw -> plugin/nsfw
 - Web GUI
 - Other Plugins
+

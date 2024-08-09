@@ -67,6 +67,13 @@ class MetaData:
     def __str__(self) -> str:
         return f"{self.name} v{self.version} by {self.author}"
 
+    def toDict(self):
+        ret_dict: dict = {}
+        for i in dir(self):
+            if not i.startswith("__") and not callable(getattr(self, i)):
+                ret_dict[i] = getattr(self, i)
+        return ret_dict
+
 
 if __name__ == "__main__":
     testpath = Path.replace('{home}/test')

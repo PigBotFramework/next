@@ -26,7 +26,7 @@ class PluginsManager:
         """
         self.path = Path.replace(path)
 
-    def load_plugins(self):
+    def loadPlugins(self):
         """
         :return: None
         """
@@ -36,7 +36,7 @@ class PluginsManager:
                 logger.warning(f"Plugin `{plugin}` is disabled")
                 continue
             self.plugin_name = plugin
-            self.load_plugin(plugin)
+            self.loadPlugin(plugin)
 
     def has(self, plugin: str):
         """
@@ -100,7 +100,7 @@ class PluginsManager:
         else:
             logger.warning(f"Plugin `{plugin}` not found")
 
-    def load_plugin(self, plugin: str):
+    def loadPlugin(self, plugin: str):
         """
         :param plugin: Plugin name
         :return: None
@@ -128,7 +128,16 @@ class PluginsManager:
         :param plugin: Plugin name
         :return: None
         """
-        self.load_plugin(plugin)
+        self.loadPlugin(plugin)
+
+    def getAllPlugins(self):
+        """
+        :return: dict
+        """
+        ret_dict: dict = {}
+        for key, value in self.plugins.items():
+            ret_dict[key] = value.meta_data.toDict()
+        return ret_dict
 
 
 if __name__ == "__main__":

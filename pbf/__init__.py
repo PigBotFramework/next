@@ -14,12 +14,10 @@ logger = Logger(__name__)
 pluginsManager = None
 
 
-def start(driver):
+def start():
     global pluginsManager
     pluginsManager = PluginsManager()
-    pluginsManager.load_plugins()
-
-    driver.run()
+    pluginsManager.loadPlugins()
 
 
 class Debug:
