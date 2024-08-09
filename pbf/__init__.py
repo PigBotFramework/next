@@ -37,11 +37,7 @@ class Debug:
 
     @staticmethod
     def pluginLoad():
-        class TempDriver:
-            def run(self):
-                pass
-
-        start(TempDriver())
+        start()
 
         handler = Handler("""
         {
@@ -85,7 +81,7 @@ class Debug:
     def clientTest():
         from .controller.Client import Client
         client = Client()
-        # logger.debug(client.request("send_msg", {"group_id": 871260826, "message": "test"}))
+        logger.debug(client.request("send_msg", {"group_id": 871260826, "message": "test"}))
 
         from .controller.Client import Msg
         from .controller.Data import Event
