@@ -16,6 +16,10 @@ class Base:
     func = None
 
     def __init__(self, **kwargs):
+        """
+        Initialize the command information.
+        :param kwargs: **dict
+        """
         for key, value in kwargs.items():
             setattr(self, key, value)
 

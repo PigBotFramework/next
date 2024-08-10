@@ -5,11 +5,19 @@ class CQCode:
     content: str = None
 
     def __init__(self, content: str) -> None:
+        """
+        初始化CQCode对象。
+        :param content: str CQCode内容
+        """
         if content is None:
             raise ValueError("Content cannot be None!")
         self.content = content
 
     def getArr(self) -> list:
+        """
+        获取CQCode完整数组。
+        :return: List[dict]
+        """
         arr: list = []
 
         left: list = self.content.split("[")
@@ -31,6 +39,13 @@ class CQCode:
         return arr
 
     def get(self, key: str, index: int = None, type: str = None) -> list:
+        """
+        获取CQCode数组中的数据。
+        :param key: str 键
+        :param index: int (可选)第几个CQCode，不传则从所有cqcode中寻找
+        :param type: str (可选)CQCode类型，不传则从所有cqcode中寻找
+        :return: list
+        """
         arr: list = []
         CQArr: list = self.getArr()
 
@@ -54,6 +69,10 @@ class CQCode:
         return arr
 
     def toStatement(self):
+        """
+        转换为Statement对象。
+        :return: Statement
+        """
         ret_list: list = []
         for item in self.getArr():
             ret_list.append(Statement('cqcode').set(item))

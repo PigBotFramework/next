@@ -10,6 +10,7 @@ try:
 except ImportError:
     from pbf.config import user_directory
 
+# Scheduler
 scheduler = BackgroundScheduler(timezone="Asia/Shanghai")
 
 
@@ -18,15 +19,16 @@ class Utils:
         pass
 
     @staticmethod
-    def print(*args, **kwargs):
-        print("PBF Server:", *args, **kwargs)
-
-    @staticmethod
     def installPackage(package: str):
+        """
+        Install package. (Blocked)
+        :param package: str package name
+        :return: None
+        """
         pip.main(["install", package])
 
 
-class Scheduler:
+class Scheduler:  # TODO: Scheduler
     def __init__(self) -> None:
         pass
 
@@ -34,12 +36,23 @@ class Scheduler:
 class Path:
     @staticmethod
     def make_sure_path_exists(path_to_file: str, replace: bool = True) -> None:
+        """
+        Make sure path exists.
+        :param path_to_file: str path to file
+        :param replace: bool (可选)是否替换path_to_file中的特殊路径
+        :return: None
+        """
         if replace:
             path_to_file = Path.replace(path_to_file)
         pathlib.Path(path_to_file).mkdir(parents=True, exist_ok=True)
 
     @staticmethod
     def replace(path: str) -> str:
+        """
+        替换path中的特殊路径。
+        :param path: str
+        :return: str
+        """
         replace_list = {
             "home": os.path.join(pathlib.Path().home(), user_directory),
             "cwd": pathlib.Path().cwd(),
@@ -81,8 +94,3 @@ class MetaData:
             if not i.startswith("__") and not callable(getattr(self, i)):
                 ret_dict[i] = getattr(self, i)
         return ret_dict
-
-
-if __name__ == "__main__":
-    testpath = Path.replace('{home}/test')
-    Utils.print(testpath)

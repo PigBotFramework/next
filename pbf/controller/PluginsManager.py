@@ -22,7 +22,7 @@ class PluginsManager:
     def __init__(self, path: str = plugins_directory):
         """
         初始化PluginsManager。
-        :param path: str Plugins directory path
+        :param path: str (可选)插件目录，默认为`pbf.config.plugins_directory`
         :return: None
         """
         self.path = Path.replace(path)

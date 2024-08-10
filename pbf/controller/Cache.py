@@ -15,7 +15,7 @@ def get(key: str, default=None):
     """
     Get the key value.
     :param key: str key
-    :param default: object default value
+    :param default: object (可选)default value
     :return: value
     """
     return cacheList.get(key, default)

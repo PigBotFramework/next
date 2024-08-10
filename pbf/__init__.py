@@ -4,6 +4,7 @@ from .utils import Path
 from .controller.ListenerManager import ListenerManager
 from .controller.PluginsManager import PluginsManager
 from .utils.Logging import Logger
+from .utils import scheduler
 from .controller.Handler import Handler
 
 Path.make_sure_path_exists(logs_directory, replace=True)
@@ -23,6 +24,7 @@ def init():
     pluginsManager = PluginsManager()
     pluginsManager.loadPlugins()
 
+    scheduler.start()
 
 class Debug:
     @staticmethod
