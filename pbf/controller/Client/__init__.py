@@ -1,4 +1,5 @@
-from ... import config, logger, pluginsManager
+from ...setup import logger, pluginsManager
+from ... import config
 from ..Data import Event
 from ...statement.TextStatement import TextStatement
 from ...utils.CQCode import CQCode

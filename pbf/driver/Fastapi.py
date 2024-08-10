@@ -6,7 +6,7 @@ import hmac
 from fastapi import FastAPI, Header, Request
 
 from ..utils import scheduler
-from .. import logger, pluginsManager
+from ..setup import logger, pluginsManager
 from ..controller.Handler import Handler
 from ..config import ob_access_token
 from ..controller.Data import Event
@@ -66,12 +66,12 @@ def app_on_shutdown():
 async def check_signature(request: Request, access_token: str, X_Signature: Union[str, None],
                     Authorization: Union[str, None]):
     """
-    校验签名
-    :param request: Request
-    :param access_token: access_token
-    :param X_Signature: X-Signature in header
-    :param Authorization: Authorization in header
-    :return: bool
+    ## 校验签名
+    - :param `request`: `Request`
+   -  :param `access_token`: `access_token`
+    - :param `X_Signature`: `X-Signature in header`
+    - :param `Authorization`: Authorization in header`
+    - :return: `bool`
     """
     # sha1校验防伪上报
     if X_Signature is not None:
@@ -95,12 +95,12 @@ async def check_signature(request: Request, access_token: str, X_Signature: Unio
 async def report(request: Request, access_token: str = None, X_Signature: Union[str, None] = Header(default=None),
            Authorization: Union[str, None] = Header(default=None)):
     """
-    上报接口
-    :param request: Request 上报数据
-    :param access_token: str (可选)access_token
-    :param X_Signature: str in header (可选)X-Signature
-    :param Authorization: str in header (可选)Authorization
-    :return: dict {"status": "ok"/"error", "message": str}
+    ## 上报接口
+    - :param `request`: `Request` 上报数据
+    - :param `access_token`: `str` (可选)access_token
+    - :param `X_Signature`: `str` in header (可选)X-Signature
+    - :param `Authorization`: `str` in header (可选)Authorization
+    - :return: `dict` `{"status": "ok"/"error", "message": str}`
     """
     try:
         if not await check_signature(request, access_token, X_Signature, Authorization):
@@ -119,12 +119,12 @@ async def report(request: Request, access_token: str = None, X_Signature: Union[
 async def call_api(request: Request, access_token: str = None, X_Signature: Union[str, None] = Header(default=None),
                    Authorization: Union[str, None] = Header(default=None)):
     """
-    调用OneBot实现的API
-    :param request: Request 请求数据
-    :param access_token: str (可选)access_token
-    :param X_Signature: str in header (可选)X-Signature
-    :param Authorization: str in header (可选)Authorization
-    :return: dict 请求结果
+    ## 调用OneBot实现的API
+    - :param `request`: `Request` 请求数据
+    - :param `access_token`: `str` (可选)access_token
+    - :param `X_Signature`: `str` in header (可选)X-Signature
+    - :param `Authorization`: `str` in header (可选)Authorization
+    - :return: `dict` 请求结果
     """
     if not await check_signature(request, access_token, X_Signature, Authorization):
         return {'status': 'error', 'message': 'Unauthorized'}
@@ -138,8 +138,8 @@ async def call_api(request: Request, access_token: str = None, X_Signature: Unio
 @app.get("/status", tags=['其他接口'])
 async def ping():
     """
-    Ping!
-    :return: dict {"status": "ok"}
+    ## Ping!
+    - :return: `dict` `{"status": "ok"}`
     """
     return {'status': 'ok'}
 
@@ -147,8 +147,8 @@ async def ping():
 @app.get("/plugins/get_all", tags=['其他接口'])
 async def get_all_plugins():
     """
-    获取所有插件
-    :return: list 插件列表
+    ## 获取所有插件
+    - :return: `list` 插件列表
     """
     return pluginsManager.getAllPlugins()
 
@@ -156,9 +156,9 @@ async def get_all_plugins():
 @app.get("/plugins/enable", tags=['其他接口'])
 async def enable_plugin(plugin: str):
     """
-    启用插件
-    :param plugin: str 插件名
-    :return: dict {"status": "ok"}
+    ## 启用插件
+    - :param `plugin`: `str` 插件名
+    - :return: `dict` `{"status": "ok"}`
     """
     pluginsManager.enable(plugin)
     return {'status': 'ok'}
@@ -167,9 +167,9 @@ async def enable_plugin(plugin: str):
 @app.get("/plugins/disable", tags=['其他接口'])
 async def disable_plugin(plugin: str):
     """
-    禁用插件
-    :param plugin: str 插件名
-    :return: dict {"status": "ok"}
+    ## 禁用插件
+    - :param `plugin`: `str` 插件名
+    - :return: `dict` `{"status": "ok"}`
     """
     pluginsManager.disable(plugin)
     return {'status': 'ok'}
@@ -178,8 +178,8 @@ async def disable_plugin(plugin: str):
 @app.get("/plugins/load_all", tags=['其他接口'])
 async def load_all_plugins():
     """
-    装载所有插件
-    :return: dict {"status": "ok"}
+    ## 装载所有插件
+    :return: `dict` `{"status": "ok"}`
     """
     pluginsManager.loadPlugins()
     return {'status': 'ok'}

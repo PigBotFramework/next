@@ -1,7 +1,7 @@
 import json
 from .Data import Event
 from ..utils.Logging import Logger
-from .. import ListenerManager
+from ..setup import ListenerManager
 
 logger = Logger(__name__)
 

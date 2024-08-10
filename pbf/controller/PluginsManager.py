@@ -4,12 +4,12 @@ try:
     from ..config import plugins_directory, plugins_disabled
     from ..utils.Logging import Logger
     from ..utils import Path, MetaData
-    from .. import ListenerManager
+    from ..setup import ListenerManager
 except ImportError:
     from pbf.config import plugins_directory, plugins_disabled
     from pbf.utils.Logging import Logger
     from pbf.utils import Path, MetaData
-    from pbf import ListenerManager
+    from pbf.setup import ListenerManager
 
 logger = Logger(__name__)
 

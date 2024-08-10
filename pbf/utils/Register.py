@@ -1,7 +1,7 @@
 from functools import wraps
 from typing import List
 
-from .. import logger, ListenerManager, pluginsManager
+from ..setup import logger, ListenerManager, pluginsManager
 
 
 class Base:

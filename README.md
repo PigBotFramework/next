@@ -24,7 +24,6 @@ PBF Next不再针对特定的OneBot实现进行适配，而是根据OneBot(v11/v
 - 支持多种Driver
 
 ## 安装
-**目前PBFNext还没有上传Pypi，下面的指令将安装旧版本[v4](https://github.com/PigBotFramework/v4)**
 ```shell
 pip install pigbotframework --upgrade
 ```
