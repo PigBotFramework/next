@@ -21,16 +21,22 @@ class PluginsManager:
 
     def __init__(self, path: str = plugins_directory):
         """
-        :param path: Plugins directory path
+        初始化PluginsManager。
+        :param path: str Plugins directory path
         :return: None
         """
         self.path = Path.replace(path)
 
     def loadPlugins(self):
         """
+        Load all plugins in the directory.
         :return: None
         """
         for plugin in os.listdir(self.path):
+            if plugin.startswith("__"):
+                continue
+            if plugin.endswith(".py"):
+                plugin = plugin[:-3]
             logger.info(f"Loading plugin: `{plugin}`")
             if plugin in plugins_disabled:
                 logger.warning(f"Plugin `{plugin}` is disabled")
@@ -40,14 +46,16 @@ class PluginsManager:
 
     def has(self, plugin: str):
         """
-        :param plugin: Plugin name
+        Check if the plugin exists.
+        :param plugin: str Plugin name
         :return: bool
         """
         return plugin in self.plugins
 
     def hasApi(self, plugin: str):
         """
-        :param plugin: Plugin name
+        Check if the plugin has an API.
+        :param plugin: str Plugin name
         :return: bool
         """
         return plugin in self.api
@@ -61,7 +69,7 @@ class PluginsManager:
                 "lower": 1
             }
         }
-        :param plugins: Plugins dependencies
+        :param plugins: dict Plugins dependencies
         :return: bool, str
         """
         for key, value in plugins:
@@ -80,8 +88,9 @@ class PluginsManager:
 
     def require(self, plugin: str):
         """
-        :param plugin: Plugin name
-        :return: Object
+        Require the plugin API.
+        :param plugin: str Plugin name
+        :return: Api Object
         """
         if plugin in self.api:
             return self.api[plugin]
@@ -89,7 +98,8 @@ class PluginsManager:
 
     def disable(self, plugin: str):
         """
-        :param plugin: Plugin name
+        Disable the plugin.
+        :param plugin: str Plugin name
         :return: None
         """
         if plugin in self.plugins:
@@ -102,7 +112,8 @@ class PluginsManager:
 
     def loadPlugin(self, plugin: str):
         """
-        :param plugin: Plugin name
+        Load the plugin.
+        :param plugin: str Plugin name
         :return: None
         """
         try:
@@ -125,13 +136,15 @@ class PluginsManager:
 
     def enable(self, plugin: str):
         """
-        :param plugin: Plugin name
+        Enable the plugin.
+        :param plugin: str Plugin name
         :return: None
         """
         self.loadPlugin(plugin)
 
     def getAllPlugins(self):
         """
+        Get all plugins.
         :return: dict
         """
         ret_dict: dict = {}

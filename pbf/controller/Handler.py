@@ -8,12 +8,20 @@ logger = Logger(__name__)
 
 class Handler:
     def __init__(self, event_data: str) -> None:
+        """
+        Initialize the Handler.
+        :param event_data: str 事件数据
+        """
         self.data = json.loads(event_data)
         self.event: Event = Event()
         self.classify()
         logger.info(f"{self.event.sender.get('nickname', '未知昵称')}({self.event.user_id}): {self.event.raw_message}")
 
     def classify(self) -> Event:
+        """
+        统一OBv11和OBv12数据格式。
+        :return: Event
+        """
         if "self" in self.data:
             self.data["self_id"] = self.data["self"]["user_id"]
             del self.data["self"]
@@ -41,7 +49,11 @@ class Handler:
         self.event = event
         return event
 
-    def handle(self):
+    def handle(self) -> bool:
+        """
+        Handle the event.
+        :return: bool
+        """
         listeners = ListenerManager.get_listeners_by_type(self.event.type)
         for key, value in listeners.items():
             for listener in value:
@@ -60,3 +72,4 @@ class Handler:
                     break
             if not break_signal:
                 logger.info("No command matched")
+        return True

@@ -4,8 +4,8 @@ cacheList: dict = {}
 def set(key: str, value):
     """
     Set or replace the key.
-    :param key: key
-    :param value: value
+    :param key: str key
+    :param value: object value
     :return: None
     """
     cacheList[key] = value
@@ -14,8 +14,8 @@ def set(key: str, value):
 def get(key: str, default=None):
     """
     Get the key value.
-    :param key: key
-    :param default: default value
+    :param key: str key
+    :param default: object default value
     :return: value
     """
     return cacheList.get(key, default)
@@ -24,8 +24,8 @@ def get(key: str, default=None):
 def delete(key: str):
     """
     Delete the key.
-    :param key: key
-    :return: value
+    :param key: str key
+    :return: object value
     """
     value = cacheList.get(key)
     cacheList.pop(key)
@@ -35,7 +35,7 @@ def delete(key: str):
 def check(key: str):
     """
     Check if the key exists.
-    :param key: key
+    :param key: str key
     :return: bool
     """
     return key in cacheList

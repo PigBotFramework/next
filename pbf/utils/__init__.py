@@ -61,6 +61,10 @@ class MetaData:
     """
 
     def __init__(self, **kwargs) -> None:
+        """
+        Initialize metadata.
+        :param kwargs: **dict Metadata
+        """
         for key, value in kwargs.items():
             setattr(self, key, value)
 
@@ -68,6 +72,10 @@ class MetaData:
         return f"{self.name} v{self.version} by {self.author}"
 
     def toDict(self):
+        """
+        Convert metadata to dict.
+        :return: dict
+        """
         ret_dict: dict = {}
         for i in dir(self):
             if not i.startswith("__") and not callable(getattr(self, i)):

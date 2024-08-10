@@ -12,6 +12,12 @@ meta_listeners = {}
 class ListenerManager:
     @staticmethod
     def set_listener(event_type: str, listener_dict: dict):
+        """
+        Set the listener dict.
+        :param event_type: str event type
+        :param listener_dict: dict listener dict
+        :return:
+        """
         global command_listeners, message_listeners, notice_listeners, request_listeners, meta_listeners
         if event_type == "command":
             command_listeners = listener_dict
@@ -27,7 +33,14 @@ class ListenerManager:
             raise ValueError("Invalid event type")
 
     @staticmethod
-    def add_listener(event_type, plugin_name, listener):
+    def add_listener(event_type: str, plugin_name: str, listener):
+        """
+        Add a listener.
+        :param event_type: str event type
+        :param plugin_name: str plugin name
+        :param listener: object listener
+        :return:
+        """
         listeners = ListenerManager.get_listeners_by_type(event_type)
         if plugin_name not in listeners:
             listeners[plugin_name] = []
@@ -35,7 +48,12 @@ class ListenerManager:
         ListenerManager.set_listener(event_type, listeners)
 
     @staticmethod
-    def get_listeners_by_plugin_name(plugin_name):
+    def get_listeners_by_plugin_name(plugin_name: str):
+        """
+        Get listeners by plugin name.
+        :param plugin_name: str plugin name
+        :return: list
+        """
         return command_listeners.get(plugin_name, []) + \
             message_listeners.get(plugin_name, []) + \
             notice_listeners.get(plugin_name, []) + \
@@ -43,7 +61,12 @@ class ListenerManager:
             meta_listeners.get(plugin_name, [])
 
     @staticmethod
-    def get_listeners_by_type(event_type):
+    def get_listeners_by_type(event_type: str):
+        """
+        Get listeners by type.
+        :param event_type: str event type
+        :return: list
+        """
         if event_type == "command":
             return command_listeners
         elif event_type == "message":
@@ -58,7 +81,12 @@ class ListenerManager:
             return []
 
     @staticmethod
-    def remove_listener_by_plugin_name(plugin_name):
+    def remove_listener_by_plugin_name(plugin_name: str):
+        """
+        Remove listeners by plugin name.
+        :param plugin_name: str plugin name
+        :return: None
+        """
         global command_listeners, message_listeners, notice_listeners, request_listeners, meta_listeners
         for listeners in [command_listeners, message_listeners, notice_listeners, request_listeners, meta_listeners]:
             if plugin_name in listeners:

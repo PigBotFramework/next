@@ -8,11 +8,27 @@ import requests
 
 class Client:
     def __init__(self, event: Event = None):
+        """
+        初始化Client。
+        使用request_by_event方法时，需要传入Event对象。
+        :param event: Event or None
+        :return: None
+        """
         if event is None:
             event = Event()
         self.event: Event = event
 
     def request_by_event(self, action: str, data: list, addition=None, echo: str = ""):
+        """
+        通过Event对象发送请求。
+        :param action: str 请求动作
+        :param data: list 每个元素表示从Event对象中获取的参数
+        :param addition: dict (可选)附加参数
+        :param echo: str (可选)回声
+        :return: dict 请求结果
+        """
+        if self.event is None:
+            raise ValueError("No event specified!")
         if addition is None:
             addition = {}
         request_data = dict()
@@ -23,6 +39,13 @@ class Client:
         return self.request(action, request_data, echo)
 
     def request(self, action: str, data=None, echo: str = ""):
+        """
+        发送请求。
+        :param action: str 请求动作
+        :param data: dict (可选)请求参数
+        :param echo: (可选)回声
+        :return: dict 请求结果
+        """
         if data is None:
             data = {}
         headers = {
@@ -48,10 +71,20 @@ class Client:
 
 class Msg(Client):
     def __init__(self, *messages, event: Event = None):
+        """
+        初始化Msg。
+        若使用send方法发送消息，需要传入Event对象。
+        :param messages: *list 消息列表。元素可以是str或Statement对象。str中可以包含CQ码，会自动转为Statement对象。
+        :param event: Event (可选)Event对象
+        """
         super().__init__(event)
         self.messages: list = list(messages)
 
     def getParam(self):
+        """
+        获取符合OB标准的消息列表。
+        :return: list 消息列表
+        """
         ret_arr: list = []
         for i in range(len(self.messages)):
             if isinstance(self.messages[i], str):
@@ -66,6 +99,13 @@ class Msg(Client):
         return ret_arr
 
     def send(self, retry: int = 0, image: bool = True):
+        """
+        发送消息。
+        需要在初始化时传入Event对象，会自动判断发送到群或私聊。
+        :param retry: int (可选)重试次数
+        :param image: bool (可选)是否尝试发送图片
+        :return: dict 请求结果
+        """
         if self.event.group_id is not None:
             data = self.send_to(group_id=self.event.group_id)
         else:
@@ -82,6 +122,10 @@ class Msg(Client):
         return data
 
     def toImage(self):
+        """
+        将消息转为图片发送。
+        :return: dict 请求结果
+        """
         if not pluginsManager.hasApi("Pillow"):
             logger.error("Pillow not found")
             return {"status": "failed", "message": "Pillow not found"}
@@ -90,6 +134,13 @@ class Msg(Client):
         Pillow.hello()
 
     def send_to(self, user_id: int = None, group_id: int = None):
+        """
+        发送消息到指定用户或群。
+        注意：user_id和group_id至少指定一个，都指定时优先向用户ID发送。
+        :param user_id: (可选)用户ID
+        :param group_id: (可选)群ID
+        :return: dict 请求结果
+        """
         params = self.getParam()
 
         if user_id is not None:

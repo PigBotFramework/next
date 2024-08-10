@@ -12,6 +12,10 @@ class Event:
     raw_message: str = None
 
     def __init__(self, **event_data) -> None:
+        """
+        初始化Event对象。
+        :param event_data: **dict 事件数据
+        """
         if event_data is None:
             event_data = {}
         for key, value in event_data.items():

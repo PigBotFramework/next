@@ -19,9 +19,18 @@ class Base:
         for key, value in kwargs.items():
             setattr(self, key, value)
 
-    def __call__(self, func):
-        logger.debug(f"Registering {self.type} `{self.name}`")
-        ListenerManager.add_listener(self.type, pluginsManager.plugin_name, self)
+    def __call__(self, origin_func):
+        if self.enabled:
+            logger.debug(f"Registering {self.type} `{self.name}`")
+            ListenerManager.add_listener(self.type, pluginsManager.plugin_name, self)
+
+        def try_except_wrapper(*args, **kwargs):
+            try:
+                return origin_func(*args, **kwargs)
+            except Exception as e:
+                logger.error(f"Error in {self.type} `{self.name}`: {e}")
+
+        func = try_except_wrapper
         self.func = func
 
         @wraps(func)

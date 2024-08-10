@@ -134,7 +134,7 @@ async def load_plugin(plugin: str):
     return {'status': 'ok'}
 
 
-@app.get("/plugins/loadAll", tags=['其他接口'])
+@app.get("/plugins/load_all", tags=['其他接口'])
 async def load_all_plugins():
     pluginsManager.loadPlugins()
     return {'status': 'ok'}

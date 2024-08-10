@@ -14,7 +14,11 @@ logger = Logger(__name__)
 pluginsManager = None
 
 
-def start():
+def init():
+    """
+    Initialize PBF. **Must be called before importing any driver.**
+    :return: None
+    """
     global pluginsManager
     pluginsManager = PluginsManager()
     pluginsManager.loadPlugins()
@@ -37,7 +41,7 @@ class Debug:
 
     @staticmethod
     def pluginLoad():
-        start()
+        init()
 
         handler = Handler("""
         {
