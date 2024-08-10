@@ -131,7 +131,7 @@ class Msg(Client):
             return {"status": "failed", "message": "Pillow not found"}
         Pillow = pluginsManager.require("Pillow")
         params = self.getParam()
-        Pillow.hello()
+        Pillow.hello()  # TODO to image
 
     def send_to(self, user_id: int = None, group_id: int = None):
         """
