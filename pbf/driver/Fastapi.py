@@ -68,7 +68,7 @@ async def check_signature(request: Request, access_token: str, X_Signature: Unio
     """
     ## 校验签名
     - :param `request`: `Request`
-   -  :param `access_token`: `access_token`
+    - :param `access_token`: `access_token`
     - :param `X_Signature`: `X-Signature in header`
     - :param `Authorization`: Authorization in header`
     - :return: `bool`
