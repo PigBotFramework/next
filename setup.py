@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 
 # Note: To use the 'upload' functionality of this file, you must:
-#   $ pipenv install twine --dev
+#   $ pip install twine --dev
+# Then you can run `python setup.py upload` to upload the distribution.
 
 import io
 import os
