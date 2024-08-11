@@ -50,7 +50,7 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 cover/
-test/*
+test/
 
 # Translations
 *.mo
@@ -71,6 +71,7 @@ instance/
 
 # Sphinx documentation
 pbf/docs/_build/
+docbuild/
 
 # PyBuilder
 .pybuilder/

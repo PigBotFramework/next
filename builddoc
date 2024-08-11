@@ -1,1 +1,1 @@
-pdoc -o docbuild --footer-text "PBF Next (5.0.0) Docs"  --math --search --logo https://pbf.xzynb.top/statics/images/head.jpg ./pbf
+pdoc -o docbuild --footer-text "PBF Next (5.0.0) Docs" --favicon https://pbf.xzynb.top/statics/images/head.jpg --math --search --logo https://pbf.xzynb.top/statics/images/head.jpg ./pbf

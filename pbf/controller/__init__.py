@@ -4,5 +4,5 @@
 - pbf.controller.Cache: 缓存类
 - pbf.controller.Handler: 处理器类
 - pbf.controller.ListenerManager: 监听器管理类
-- pbf.controller.PluginManager: 插件管理类
+- pbf.controller.PluginsManager: 插件管理类
 """
