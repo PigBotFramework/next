@@ -92,7 +92,7 @@ class PluginsManager:
         :param plugin: str Plugin name
         :return: Api Object
         """
-        if plugin in self.api:
+        if self.hasApi(plugin):
             return self.api[plugin]
         raise Exception(f"Plugin `{plugin}` not found or has no API")
 
@@ -102,9 +102,10 @@ class PluginsManager:
         :param plugin: str Plugin name
         :return: None
         """
-        if plugin in self.plugins:
+        if self.has(plugin):
             self.plugins.pop(plugin)
-            self.api.pop(plugin)
+            if self.hasApi(plugin):
+                self.api.pop(plugin)
             ListenerManager.remove_listener_by_plugin_name(plugin)
             logger.info(f"Plugin `{plugin}` disabled")
         else:
