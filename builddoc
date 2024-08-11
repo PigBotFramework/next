@@ -1,0 +1,1 @@
+pdoc -o build --footer-text "PBF Next (5.0.0) Docs"  --math --search --logo https://pbf.xzynb.top/statics/images/head.jpg ./pbf

@@ -6,6 +6,7 @@
 
 
 
+# 快速开始
 ## 运行PBF服务器
 ### Step 1: 前置准备
 - 安装Python3.8及以上版本
@@ -127,7 +128,7 @@ def testCommand(event: Event):
     logger.info(f"test command was called: {event}")
     # do something
     logger.info(
-        Msg("恭喜！\n当你收到这条消息，意味着您的第一个插件成功运行！", event=event).send())
+        Msg("恭喜！当你收到这条消息，意味着您的第一个插件成功运行！", event=event).send())
     # 这是发送一条消息，Msg类是基于Client类的封装，具体使用请见文档
 ```
 这里我们定义了一个`test`指令，当用户发送`test`开头的文本时，这个指令就会被调用。 <br>
@@ -177,18 +178,18 @@ def metaHandler(event: Event):
 - 通常情况下，我们的插件并不是以单文件方式呈现，因此我们可以在`~/.pbf/plugins`目录下创建一个包，在这个包里面编写插件（目录结构如下）
     ```
     /.pbf
-    └── plugins
-        └── foo
-            ├── __init__.py  # 你的插件主体
-            ├── README.md
-            └── LICENSE
+    ├── plugins
+    |   └── foo
+    |       ├── __init__.py  # 你的插件主体
+    |       ├── README.md
+    |       └── LICENSE
     └── logs
     ```
 - 我们有一个插件模板，您可以在[PigBotFrameworkPlugins/template](https://github.com/PigBotFrameworkPlugins/template)找到。
 
 
 
-## 更多内容
+# 更多内容
 关于插件及PBF开发的更多内容，请查阅 [docs](/pbf/docs.html)
 """
 
