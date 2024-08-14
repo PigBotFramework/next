@@ -26,6 +26,8 @@ ob_version = "v11"  # or "v12"
 # Plugins
 plugins_directory = "{home}/plugins"
 plugins_disabled = []
+# Config for plugins
+plugins_config = {}
 
 # Logs
 logs_directory = "{home}/logs"

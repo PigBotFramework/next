@@ -76,6 +76,7 @@ class UploadCommand(Command):
         try:
             self.status('Removing previous builds…')
             rmtree(os.path.join(here, 'dist'))
+            rmtree(os.path.join(here, 'build'))
         except OSError:
             pass
 
@@ -91,6 +92,7 @@ class UploadCommand(Command):
         os.system('git push --tags')
 
         self.status("Build docs...")
+        os.system("pip install pdoc")
         os.system(f'pdoc -o docbuild --footer-text "PBF Next ({VERSION}) Docs" --favicon https://pbf.xzynb.top/statics/images/head.jpg --math --search --logo https://pbf.xzynb.top/statics/images/head.jpg ./pbf')
 
         sys.exit()

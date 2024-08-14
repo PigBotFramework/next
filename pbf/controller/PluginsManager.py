@@ -27,11 +27,21 @@ class PluginsManager:
         """
         self.path = Path.replace(path)
 
+    def clearPlugins(self):
+        """
+        清空所有插件。
+        :return: None
+        """
+        self.plugins.clear()
+        self.api.clear()
+        ListenerManager.clear()
+
     def loadPlugins(self):
         """
         Load all plugins in the directory.
         :return: None
         """
+        self.clearPlugins()
         for plugin in os.listdir(self.path):
             if plugin.startswith("__"):
                 continue

@@ -48,6 +48,19 @@ class ListenerManager:
         ListenerManager.set_listener(event_type, listeners)
 
     @staticmethod
+    def clear():
+        """
+        Clear all listeners.
+        :return: None
+        """
+        global command_listeners, message_listeners, notice_listeners, request_listeners, meta_listeners
+        command_listeners = {}
+        message_listeners = {}
+        notice_listeners = {}
+        request_listeners = {}
+        meta_listeners = {}
+
+    @staticmethod
     def get_listeners_by_plugin_name(plugin_name: str):
         """
         Get listeners by plugin name.

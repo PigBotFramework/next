@@ -23,7 +23,7 @@ class Handler:
         :return: Event
         """
         if "self" in self.data:
-            self.data["self_id"] = self.data["self"]["user_id"]
+            self.data["self_id"] = self.data["self"].get("user_id")
             del self.data["self"]
 
         if "post_type" in self.data:
@@ -33,6 +33,18 @@ class Handler:
         if "message_type" in self.data:
             self.data["detail_type"] = self.data["message_type"]
             del self.data["message_type"]
+
+        if "notice_type" in self.data:
+            self.data["detail_type"] = self.data["notice_type"]
+            del self.data["notice_type"]
+
+        if "request_type" in self.data:
+            self.data["detail_type"] = self.data["request_type"]
+            del self.data["request_type"]
+
+        if "meta_event_type" in self.data:
+            self.data["detail_type"] = self.data["meta_event_type"]
+            del self.data["meta_event_type"]
 
         if "alt_message" in self.data:
             self.data["raw_message"] = self.data["alt_message"]
@@ -44,6 +56,11 @@ class Handler:
                 "nickname": self.data["qq.nickname"]
             }
             del self.data["qq.nickname"]
+
+        if "sender" not in self.data:
+            self.data["sender"] = {
+                "user_id": self.data.get("user_id")
+            }
 
         event = Event(**self.data)
         self.event = event

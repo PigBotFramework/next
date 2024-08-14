@@ -25,16 +25,16 @@ def setup():
     """
     global pluginsManager
     pluginsManager = PluginsManager()
-    pluginsManager.plugins = {}
-    pluginsManager.api = {}
-    ListenerManager.set_listener("command", {})
-    ListenerManager.set_listener("message", {})
-    ListenerManager.set_listener("notice", {})
-    ListenerManager.set_listener("request", {})
-    ListenerManager.set_listener("meta", {})
+
+    # Clear all listeners and plugins
+    pluginsManager.clearPlugins()
+
     pluginsManager.loadPlugins()
 
-    scheduler.start()
+    try:
+        scheduler.start()
+    except Exception as e:
+        logger.error(f"Error in starting scheduler: {e}")
 
 
 class Debug:
