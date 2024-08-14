@@ -1,5 +1,6 @@
 from ...setup import logger, pluginsManager
 from ... import config
+from ... import version
 from ..Data import Event
 from ...statement.TextStatement import TextStatement
 from ...utils.CQCode import CQCode
@@ -51,7 +52,7 @@ class Client:
             data = {}
         headers = {
             "Authorization": "Bearer " + config.ob_access_token,
-            "PBF-Client": f"PBFNext v{config.version}",
+            "PBF-Client": f"PBFNext v{version}",
         }
         req = None
         if config.ob_version == "v11":

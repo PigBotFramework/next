@@ -90,6 +90,9 @@ class UploadCommand(Command):
         os.system('git tag v{0}'.format(VERSION))
         os.system('git push --tags')
 
+        self.status("Build docs...")
+        os.system(f'pdoc -o docbuild --footer-text "PBF Next ({VERSION}) Docs" --favicon https://pbf.xzynb.top/statics/images/head.jpg --math --search --logo https://pbf.xzynb.top/statics/images/head.jpg ./pbf')
+
         sys.exit()
 
 

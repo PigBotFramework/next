@@ -57,7 +57,8 @@ class Handler:
         listeners = ListenerManager.get_listeners_by_type(self.event.type)
         for key, value in listeners.items():
             for listener in value:
-                listener.func(self.event)
+                if listener.permission(self.event):
+                    listener.func(self.event)
 
         if self.event.type == "message":
             break_signal: bool = False
@@ -66,7 +67,8 @@ class Handler:
                 for listener in value:
                     if self.event.raw_message.startswith(listener.name):
                         break_signal = True
-                        listener.func(self.event)
+                        if listener.permission(self.event):
+                            listener.func(self.event)
                         break
                 if break_signal:
                     break

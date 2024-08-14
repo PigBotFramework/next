@@ -65,7 +65,7 @@ class ListenerManager:
         """
         Get listeners by type.
         :param event_type: str event type
-        :return: list
+        :return: dict
         """
         if event_type == "command":
             return command_listeners
@@ -78,10 +78,10 @@ class ListenerManager:
         elif event_type == "meta":
             return meta_listeners
         else:
-            return []
+            return {}
 
     @staticmethod
-    def remove_listener_by_plugin_name(plugin_name: str):
+    def remove_listeners_by_plugin_name(plugin_name: str):
         """
         Remove listeners by plugin name.
         :param plugin_name: str plugin name
@@ -96,3 +96,17 @@ class ListenerManager:
         ListenerManager.set_listener("notice", notice_listeners)
         ListenerManager.set_listener("request", request_listeners)
         ListenerManager.set_listener("meta", meta_listeners)
+
+    @staticmethod
+    def remove_listener_by_plugin_name(plugin_name: str, listener):
+        """
+        Remove listener by plugin name.
+        :param plugin_name: str plugin name
+        :param listener: object listener
+        :return: None
+        """
+        listeners = ListenerManager.get_listeners_by_plugin_name(plugin_name)
+        for i in range(len(listeners)):
+            if listeners[i] == listener:
+                listeners.pop(i)
+                break

@@ -106,7 +106,7 @@ class PluginsManager:
             self.plugins.pop(plugin)
             if self.hasApi(plugin):
                 self.api.pop(plugin)
-            ListenerManager.remove_listener_by_plugin_name(plugin)
+            ListenerManager.remove_listeners_by_plugin_name(plugin)
             logger.info(f"Plugin `{plugin}` disabled")
         else:
             logger.warning(f"Plugin `{plugin}` not found")
@@ -122,8 +122,8 @@ class PluginsManager:
             logger.info(plugin_distance.meta_data)
             try:
                 plugin_distance._enter()
-            except Exception:
-                pass
+            except Exception as err:
+                logger.warning(f"Plugin `{plugin}` failed to load `_enter` function: {err}")
             try:
                 self.api[plugin] = plugin_distance.Api
             except Exception:

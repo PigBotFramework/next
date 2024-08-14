@@ -4,16 +4,20 @@ from typing import List
 from ..setup import logger, ListenerManager, pluginsManager
 
 
+def allPermission(self, event):
+    return True
+
+
 class Base:
     name: str = 'Command name'
     description: str = 'Command description'
-    permission: str = 'cmd.permission.name'
+    permission: callable = allPermission
     usage: str = 'Command usage'
     alias: List[str] = []
     hidden: bool = False
     enabled: bool = True
     type: str = 'command'
-    func = None
+    func: callable = None
 
     def __init__(self, **kwargs):
         """

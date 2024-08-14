@@ -14,6 +14,7 @@ sys.path.append(Path.replace(plugins_directory))
 logger = Logger(__name__)
 pluginsManager = None
 
+
 # **Important!!!**
 # Must import logger, pluginsManager, ListenerManager from pbf.setup
 
@@ -24,9 +25,17 @@ def setup():
     """
     global pluginsManager
     pluginsManager = PluginsManager()
+    pluginsManager.plugins = {}
+    pluginsManager.api = {}
+    ListenerManager.set_listener("command", {})
+    ListenerManager.set_listener("message", {})
+    ListenerManager.set_listener("notice", {})
+    ListenerManager.set_listener("request", {})
+    ListenerManager.set_listener("meta", {})
     pluginsManager.loadPlugins()
 
     scheduler.start()
+
 
 class Debug:
     @staticmethod
