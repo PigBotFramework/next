@@ -1,5 +1,4 @@
 import click
-import start_example
 import inspect
 import textwrap
 import os
@@ -12,6 +11,24 @@ art_txt = art.text2art("PBF CLI", font='larry3d')
 _template_repo = "https://github.com/PigBotFrameworkPlugins/template"
 _home_path = pathlib.Path().home()
 _plugins_path = os.path.join(_home_path, ".pbf", "plugins")
+_start_template = """
+# Step 1: import config and modify it
+from pbf import config
+
+config.logs_level = "DEBUG"
+# Modify more configurations here
+
+# Step 2: import setup and setup
+from pbf import setup
+
+setup.setup()
+
+# Step 3: import driver and start it
+if __name__ == "__main__":
+    from pbf.driver import Fastapi
+
+    Fastapi.start()
+"""
 
 
 def printPBF():
@@ -35,13 +52,7 @@ def init():
         click.secho('.pbflock exists, exiting', fg="red")
         return
     with open('start.py', 'w') as f:
-        # 读取start.py文件内容并写入
-        content = inspect.getsource(start_example.content)
-        # 去掉函数定义行
-        lines = content.splitlines()[1:]
-        # 去掉多余的缩进
-        function_body = textwrap.dedent("\n".join(lines))
-        f.write(function_body)
+        f.write(_start_template)
     click.secho('start.py created', fg='green')
     with open(".pbflock", 'w') as f:
         f.write('true')
