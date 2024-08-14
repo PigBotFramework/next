@@ -1,7 +1,9 @@
 peewee~=3.17.6
-pytz~=2024.1
 pip~=24.0
 apscheduler~=3.10.4
 uvicorn~=0.30.5
 fastapi~=0.112.0
 requests~=2.32.3
+click~=8.1.7
+setuptools~=69.5.1
+art~=6.2

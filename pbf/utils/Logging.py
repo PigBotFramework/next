@@ -1,7 +1,7 @@
 import logging
 import os
-from datetime import datetime
-import pytz
+import re
+from logging.handlers import TimedRotatingFileHandler
 
 try:
     from ..config import logs_level, logs_format, logs_directory
@@ -17,6 +17,8 @@ class Logger:
         Initialize the Logger.
         :param name: str Logger name
         """
+        self.file_handler = None
+        self.name = name
         self.logger = logging.getLogger(name)
         self.logger.setLevel(logs_level)
         self.formatter = logging.Formatter(logs_format)
@@ -25,14 +27,9 @@ class Logger:
         self.console_handler.setLevel(logs_level)
         self.console_handler.setFormatter(self.formatter)
 
-        now = datetime.now(pytz.timezone('Asia/Shanghai'))
-        file_name = now.strftime("%Y-%m-%d.log")
-        self.file_handler = logging.FileHandler(os.path.join(Path.replace(logs_directory), file_name))
-        self.file_handler.setLevel(logs_level)
-        self.file_handler.setFormatter(self.formatter)
+        self.set_file(logs_directory)
 
         self.logger.addHandler(self.console_handler)
-        self.logger.addHandler(self.file_handler)
 
     def get_logger(self) -> logging.Logger:
         """
@@ -67,8 +64,11 @@ class Logger:
         :param file: str file path
         :return: None
         """
-        self.file_handler = logging.FileHandler(file)
-        self.file_handler.setLevel(self.logger.level)
+        self.file_handler = TimedRotatingFileHandler(
+            filename=os.path.join(Path.replace(file), "log"), when="MIDNIGHT", interval=1, backupCount=20
+        )
+        self.file_handler.suffix = "%Y-%m-%d.log"
+        self.file_handler.extMatch = re.compile(r"^\d{4}-\d{2}-\d{2}.log$")
         self.file_handler.setFormatter(self.formatter)
         self.logger.addHandler(self.file_handler)
 
