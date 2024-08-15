@@ -195,6 +195,6 @@ def metaHandler(event: Event):
 
 
 # Version
-version = "5.0.5"
-version_code = 5005
+version = "5.0.6"
+version_code = 5006
 version_name = version

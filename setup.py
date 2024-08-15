@@ -94,6 +94,7 @@ class UploadCommand(Command):
         self.status("Build docs...")
         os.system("pip install pdoc")
         os.system(f'pdoc -o docbuild --footer-text "PBF Next ({VERSION}) Docs" --favicon https://pbf.xzynb.top/statics/images/head.jpg --math --search --logo https://pbf.xzynb.top/statics/images/head.jpg ./pbf')
+        self.status("Successfully build docs")
 
         sys.exit()
 

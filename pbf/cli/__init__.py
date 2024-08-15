@@ -1,6 +1,4 @@
 import click
-import inspect
-import textwrap
 import os
 from git import Repo
 import pathlib

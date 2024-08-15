@@ -1,15 +1,19 @@
 import sys
 from .config import *
 from .utils import Path
+
+
+Path.make_sure_path_exists(logs_directory, replace=True)
+Path.make_sure_path_exists(plugins_directory, replace=True)
+sys.path.append(Path.replace(plugins_directory))
+
+
 from .controller.ListenerManager import ListenerManager
 from .controller.PluginsManager import PluginsManager
 from .utils.Logging import Logger
 from .utils import scheduler
 from .controller.Handler import Handler
 
-Path.make_sure_path_exists(logs_directory, replace=True)
-Path.make_sure_path_exists(plugins_directory, replace=True)
-sys.path.append(Path.replace(plugins_directory))
 
 logger = Logger(__name__)
 pluginsManager = None

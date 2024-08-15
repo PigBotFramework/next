@@ -1,7 +1,3 @@
-from ..utils.Logging import Logger
-
-logger = Logger(__name__)
-
 command_listeners = {}
 message_listeners = {}
 notice_listeners = {}
