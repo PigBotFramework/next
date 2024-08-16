@@ -1,12 +1,10 @@
 import click
 import os
-from git import Repo
 import pathlib
 import art
 
-
 art_txt = art.text2art("PBF CLI", font='larry3d')
-_template_repo = "https://github.com/PigBotFrameworkPlugins/template"
+_template_repo = "https://github.com/PigBotFrameworkPlugins/"
 _home_path = pathlib.Path().home()
 _plugins_path = os.path.join(_home_path, ".pbf", "plugins")
 _start_template = """
@@ -33,6 +31,14 @@ def printPBF():
     # 打印`PigBotFramework`字符画
     print(click.style(art_txt, fg='green'))
 
+
+def installPlugin(plugin_id: str, plugin_name: str, plugins_path: str):
+    try:
+        from git import Repo
+        Repo.clone_from(f"{_template_repo}{plugin_id}", os.path.join(plugins_path, plugin_name))
+    except Exception as e:
+        click.secho(f'Error: {e}', fg='red')
+        return
 
 @click.group(
     help=f'{art_txt}\n'
@@ -89,11 +95,17 @@ def start():
 @click.option('--plugins_path', '-p', help='The path to store plugins', default=_plugins_path)
 def create_plugin(plugin_name: str, plugins_path: str):
     click.secho('Clone template ...')
-    try:
-        Repo.clone_from(_template_repo, os.path.join(plugins_path, plugin_name))
-    except Exception as e:
-        click.secho(f'Error: {e}', fg='red')
-        return
+    installPlugin('template', plugin_name, plugins_path)
+    click.secho('Done.', fg='green')
+
+@cli.command(
+    help='Install a plugin from GitHub/PigBotFrameworkPlugins/'
+)
+@click.argument('plugin_id')
+@click.option('--plugins_path', '-p', help='The path to store plugins', default=_plugins_path)
+def install_plugin(plugin_id: str, plugins_path: str):
+    click.secho('Installing plugin ...')
+    installPlugin(plugin_id, plugin_id, plugins_path)
     click.secho('Done.', fg='green')
 
 

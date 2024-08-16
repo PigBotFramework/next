@@ -50,6 +50,11 @@ class ListenerManager:
         :return: None
         """
         global command_listeners, message_listeners, notice_listeners, request_listeners, meta_listeners
+        del command_listeners
+        del message_listeners
+        del notice_listeners
+        del request_listeners
+        del meta_listeners
         command_listeners = {}
         message_listeners = {}
         notice_listeners = {}

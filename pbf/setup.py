@@ -22,18 +22,17 @@ pluginsManager = None
 # **Important!!!**
 # Must import logger, pluginsManager, ListenerManager from pbf.setup
 
-def setup():
+def setup(_name):
     """
     Initialize PBF. **Must be called before importing any driver.**
     :return: None
     """
+    logger.debug(f"Setup __name__: {_name}")
+    flag: bool = True if _name == "__mp_main__" else False
+
     global pluginsManager
     pluginsManager = PluginsManager()
-
-    # Clear all listeners and plugins
-    pluginsManager.clearPlugins()
-
-    pluginsManager.loadPlugins()
+    pluginsManager.loadPlugins(enter=flag)
 
     try:
         scheduler.start()
@@ -58,7 +57,7 @@ class Debug:
 
     @staticmethod
     def pluginLoad():
-        setup()
+        setup(__name__)
 
         handler = Handler("""
         {

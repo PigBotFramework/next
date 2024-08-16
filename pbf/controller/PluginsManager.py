@@ -1,4 +1,5 @@
 import os
+import traceback
 
 try:
     from ..config import plugins_directory, plugins_disabled
@@ -32,13 +33,22 @@ class PluginsManager:
         清空所有插件。
         :return: None
         """
-        self.plugins.clear()
+        # 销毁所有self.plugins中的对象
+        for key, value in self.plugins.items():
+            try:
+                value._exit()
+            except AttributeError:
+                pass
+            except Exception:
+                logger.warning(f"Plugin `{key}` failed to load `_exit` function: {traceback.format_exc()}")
+        # 销毁Api
         self.api.clear()
         ListenerManager.clear()
 
-    def loadPlugins(self):
+    def loadPlugins(self, enter: bool = True):
         """
         Load all plugins in the directory.
+        :param enter: bool (可选)是否调用`_enter`函数，默认为`True`
         :return: None
         """
         self.clearPlugins()
@@ -52,7 +62,7 @@ class PluginsManager:
                 logger.warning(f"Plugin `{plugin}` is disabled")
                 continue
             self.plugin_name = plugin
-            self.loadPlugin(plugin)
+            self.loadPlugin(plugin, enter=enter)
 
     def has(self, plugin: str):
         """
@@ -121,29 +131,33 @@ class PluginsManager:
         else:
             logger.warning(f"Plugin `{plugin}` not found")
 
-    def loadPlugin(self, plugin: str):
+    def loadPlugin(self, plugin: str, enter: bool = True):
         """
         Load the plugin.
         :param plugin: str Plugin name
+        :param enter: bool (可选)是否调用`_enter`函数，默认为`True`
         :return: None
         """
         try:
             plugin_distance = __import__(f"{plugin}")
             logger.info(plugin_distance.meta_data)
-            try:
-                plugin_distance._enter()
-            except Exception as err:
-                logger.warning(f"Plugin `{plugin}` failed to load `_enter` function: {err}")
+            if enter:
+                try:
+                    plugin_distance._enter()
+                except AttributeError:
+                    pass
+                except Exception:
+                    logger.warning(f"Plugin `{plugin}` failed to load `_enter` function: {traceback.format_exc()}")
             try:
                 self.api[plugin] = plugin_distance.Api
             except Exception:
                 pass
             self.plugins[plugin] = plugin_distance
             logger.info(f"Plugin `{plugin}` loaded")
-        except ImportError as e:
-            logger.error(f"Plugin `{plugin}` failed to load: {e}")
-        except Exception as e:
-            logger.error(f"Plugin `{plugin}` failed to load: {e}")
+        except ImportError:
+            logger.error(f"Plugin `{plugin}` failed to load: {traceback.format_exc()}")
+        except Exception:
+            logger.error(f"Plugin `{plugin}` failed to load: {traceback.format_exc()}")
 
     def enable(self, plugin: str):
         """

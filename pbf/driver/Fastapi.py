@@ -58,7 +58,8 @@ def app_on_shutdown():
     """
     try:
         scheduler.shutdown(wait=False)
-        logger.info('Scheduler shutdowned.')
+        pluginsManager.clearPlugins()
+        logger.info('Scheduler shutdown.')
     except Exception:
         pass
 
