@@ -91,7 +91,7 @@ MetaData的参数如下：
 - `keywords` (List[str])：插件关键字
 - `readme` (str)：插件README
 
-### Step 3: 创建`_enter`
+### Step 3.1: 创建`_enter`
 有的时候，我们需要让插件在被装载时执行某些操作，这时我们需要定义`_enter`函数
 ```python
 from pbf.setup import logger
@@ -101,6 +101,22 @@ def _enter():  # 如不需要可以删除
 ```
 这里我们从`pbf.setup`中导入了`logger`，此后我们都可以使用`logger`来输出日志。 <br>
 当然，如果您不需要`_enter`，也完全可以不定义他。
+
+> **Tip: 确切来说，`_enter`函数会在插件被装载时调用，而非PBF启动时** <br>
+> 因为对于Fastapi来说，执行的文件`main.py`会有两次被调用， <br>
+> 第一次的`__name__`为`"__main__"`，这也就是运行`python main.py`的那次 <br>
+> 在启动Fastapi后，uvicorn会再次调用`main.py`，这次的`__name__`为`"__mp_main__"`， <br>
+> 而`_enter`（以及下文的`_exit`）函数会在`"__mp_main__"`时调用 <br>
+> 同时，如果uvicorn开启了debug模式，重载时会先`shutdown application`，此时.controller.PluginsManager会调用`_exit`卸载插件， <br>
+> 然后，会`startup application`，此时调用`_enter`
+
+### Step 3.2: 创建`_exit`
+顾名思义，`_exit`函数会在插件卸载时调用
+```python
+def _exit():  # 如不需要可以删除
+    logger.info("Test PBF Plugin unloaded")
+```
+当然，如果您不需要`_exit`，也完全可以不定义他。
 
 ### Step 4: 创建接口
 有的时候，我们需要在插件之间进行互通，这时我们可以定义一些开放给其他插件使用的接口
@@ -195,6 +211,6 @@ def metaHandler(event: Event):
 
 
 # Version
-version = "5.0.6"
-version_code = 5006
+version = "5.0.7"
+version_code = 5007
 version_name = version

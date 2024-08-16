@@ -17,7 +17,7 @@ config.logs_level = "DEBUG"
 # Step 2: import setup and setup
 from pbf import setup
 
-setup.setup()
+setup.setup(__name__)
 
 # Step 3: import driver and start it
 if __name__ == "__main__":
