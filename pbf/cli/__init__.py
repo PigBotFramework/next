@@ -1,3 +1,4 @@
+import json
 import click
 import os
 import pathlib
@@ -7,6 +8,7 @@ art_txt = art.text2art("PBF CLI", font='larry3d')
 _template_repo = "https://github.com/PigBotFrameworkPlugins/"
 _home_path = pathlib.Path().home()
 _plugins_path = os.path.join(_home_path, ".pbf", "plugins")
+_start_template_version = "0.1.0"
 _start_template = """
 # Step 1: import config and modify it
 from pbf import config
@@ -59,7 +61,9 @@ def init():
         f.write(_start_template)
     click.secho('start.py created', fg='green')
     with open(".pbflock", 'w') as f:
-        f.write('true')
+        f.write(json.dumps({
+            "version": _start_template_version
+        }))
     click.secho('.pbflock created', fg='green')
     click.secho("Now you can run 'pbf start' to start the server", fg='green')
 
