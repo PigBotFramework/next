@@ -57,10 +57,10 @@ def init():
     if '.pbflock' in os.listdir():
         click.secho('.pbflock exists, exiting', fg="red")
         return
-    with open('start.py', 'w') as f:
+    with open('start.py', 'w', encoding="utf-8") as f:
         f.write(_start_template)
     click.secho('start.py created', fg='green')
-    with open(".pbflock", 'w') as f:
+    with open(".pbflock", 'w', encoding="utf-8") as f:
         f.write(json.dumps({
             "version": _start_template_version
         }))

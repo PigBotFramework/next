@@ -1,4 +1,4 @@
-class ConfigException(Exception): pass;
+class ConfigException(Exception): pass
 
 
 class Config:

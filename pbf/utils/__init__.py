@@ -28,11 +28,6 @@ class Utils:
         pip.main(["install", package])
 
 
-class Scheduler:  # TODO: Scheduler
-    def __init__(self) -> None:
-        pass
-
-
 class Path:
     @staticmethod
     def make_sure_path_exists(path_to_file: str, replace: bool = True) -> None:

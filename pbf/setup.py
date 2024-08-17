@@ -1,18 +1,17 @@
 import sys
-from .config import *
+from . import config
 from .utils import Path
 
 
-Path.make_sure_path_exists(logs_directory, replace=True)
-Path.make_sure_path_exists(plugins_directory, replace=True)
-sys.path.append(Path.replace(plugins_directory))
+Path.make_sure_path_exists(config.logs_directory, replace=True)
+Path.make_sure_path_exists(config.plugins_directory, replace=True)
+sys.path.append(Path.replace(config.plugins_directory))
 
 
 from .controller.ListenerManager import ListenerManager
 from .controller.PluginsManager import PluginsManager
 from .utils.Logging import Logger
 from .utils import scheduler
-from .controller.Handler import Handler
 
 
 logger = Logger(__name__)
@@ -34,77 +33,9 @@ def setup(_name):
     pluginsManager = PluginsManager()
     pluginsManager.loadPlugins(enter=flag)
 
+    logger.debug(f"ListenerManager is ready: {ListenerManager}")
+
     try:
         scheduler.start()
     except Exception as e:
         logger.error(f"Error in starting scheduler: {e}")
-
-
-class Debug:
-    @staticmethod
-    def commandRegister():
-        from pbf.utils.Register import Command
-
-        @Command(name="test", description="test command")
-        def test_command():
-            logger.debug("test command")
-
-        logger.debug(str(ListenerManager.get_listeners_by_type("command")))
-        logger.debug(ListenerManager.get_listeners_by_plugin_name("test"))
-        func: Command = ListenerManager.get_listeners_by_plugin_name("test")[0]
-        print(func.name)
-        func.func()
-
-    @staticmethod
-    def pluginLoad():
-        setup(__name__)
-
-        handler = Handler("""
-        {
-            "id": "b6e65187-5ac0-489c-b431-53078e9d2bbb",
-            "self": {
-                "platform": "qq",
-                "user_id": "123234"
-            },
-            "time": 1632847927.599013,
-            "type": "message",
-            "detail_type": "private",
-            "sub_type": "",
-            "message_id": "6283",
-            "message": [
-                {
-                    "type": "text",
-                    "data": {
-                        "text": "test arg1"
-                    }
-                }
-            ],
-            "alt_message": "test arg1",
-            "user_id": "123test",
-            "qq.nickname": "海阔天空"
-        }
-        """)
-        handler.handle()
-
-    @staticmethod
-    def statementTest():
-        from .statement.AtStatement import AtStatement
-        statement = AtStatement(2417481092)
-        logger.debug(str(statement))
-
-        from .utils.CQCode import CQCode
-        cqcode = CQCode("[CQ:at,qq=2417481092]")
-        logger.debug(str(cqcode.get("qq")))
-        logger.debug(str(cqcode.toStatement()))
-
-    @staticmethod
-    def clientTest():
-        from .controller.Client import Client
-        client = Client()
-        logger.debug(client.request("send_msg", {"group_id": 871260826, "message": "test"}))
-
-        from .controller.Client import Msg
-        from .controller.Data import Event
-        from .statement.FaceStatement import FaceStatement
-        msg = Msg("123test", FaceStatement(123), event=Event(**{"group_id": 871260826}))
-        logger.debug(msg.send(image=False))

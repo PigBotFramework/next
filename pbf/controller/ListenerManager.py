@@ -101,7 +101,7 @@ class ListenerManager:
         :param plugin_name: str plugin name
         :return: None
         """
-        global command_listeners, message_listeners, notice_listeners, request_listeners, meta_listeners
+        # global command_listeners, message_listeners, notice_listeners, request_listeners, meta_listeners
         for listeners in [command_listeners, message_listeners, notice_listeners, request_listeners, meta_listeners]:
             if plugin_name in listeners:
                 listeners.pop(plugin_name)

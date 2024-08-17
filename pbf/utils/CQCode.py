@@ -33,8 +33,8 @@ class CQCode:
                         tmp_str = j.split("=")
                         cqDict["data"][tmp_str[0]] = tmp_str[1]
                 arr.append(cqDict)
-            except Exception:
-                raise ValueError("Not a valid CQCode!")
+            except Exception as exc:
+                raise ValueError("Not a valid CQCode!") from exc
 
         return arr
 

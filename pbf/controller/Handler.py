@@ -72,7 +72,7 @@ class Handler:
         :return: bool
         """
         listeners = ListenerManager.get_listeners_by_type(self.event.type)
-        for key, value in listeners.items():
+        for _, value in listeners.items():
             for listener in value:
                 if listener.permission(self.event):
                     listener.func(self.event)

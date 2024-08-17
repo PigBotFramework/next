@@ -14,6 +14,8 @@ except ImportError:
 
 logger = Logger(__name__)
 
+class NoApiError(Exception): pass
+
 
 class PluginsManager:
     plugins: dict = {}
@@ -34,7 +36,7 @@ class PluginsManager:
         :return: None
         """
         # 销毁所有self.plugins中的对象
-        for key, value in self.plugins.items():
+        for key, _ in self.plugins.items():
             self.disable(key)
         # 清空self.plugins
         self.plugins.clear()
@@ -111,7 +113,7 @@ class PluginsManager:
         """
         if self.hasApi(plugin):
             return self.api[plugin]
-        raise Exception(f"Plugin `{plugin}` not found or has no API")
+        raise NoApiError(f"Plugin `{plugin}` not found or has no API")
 
     def disable(self, plugin: str):
         """
