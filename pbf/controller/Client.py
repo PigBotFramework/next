@@ -1,9 +1,9 @@
-from ...setup import logger, pluginsManager
-from ... import config
-from ... import version
-from ..Data import Event
-from ...statement.TextStatement import TextStatement
-from ...utils.CQCode import CQCode
+from ..setup import logger, pluginsManager
+from .. import config
+from .. import version
+from .Data import Event
+from ..statement.TextStatement import TextStatement
+from ..utils.CQCode import CQCode
 
 import requests
 

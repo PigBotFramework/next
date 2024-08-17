@@ -35,12 +35,9 @@ class PluginsManager:
         """
         # 销毁所有self.plugins中的对象
         for key, value in self.plugins.items():
-            try:
-                value._exit()
-            except AttributeError:
-                pass
-            except Exception:
-                logger.warning(f"Plugin `{key}` failed to load `_exit` function: {traceback.format_exc()}")
+            self.disable(key)
+        # 清空self.plugins
+        self.plugins.clear()
         # 销毁Api
         self.api.clear()
         ListenerManager.clear()
@@ -123,6 +120,12 @@ class PluginsManager:
         :return: None
         """
         if self.has(plugin):
+            try:
+                self.plugins[plugin]._exit()
+            except AttributeError:
+                pass
+            except Exception:
+                logger.warning(f"Plugin `{plugin}` failed to load `_exit` function: {traceback.format_exc()}")
             self.plugins.pop(plugin)
             if self.hasApi(plugin):
                 self.api.pop(plugin)
