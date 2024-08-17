@@ -1,5 +1,4 @@
 peewee~=3.17.6
-pip~=24.0
 apscheduler~=3.10.4
 uvicorn~=0.30.5
 fastapi~=0.112.0

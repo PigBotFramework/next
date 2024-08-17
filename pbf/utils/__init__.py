@@ -1,7 +1,6 @@
 import pathlib
 import os
 import pip
-
 from apscheduler.schedulers.background import BackgroundScheduler
 
 # Debug
@@ -26,6 +25,16 @@ class Utils:
         :return: None
         """
         pip.main(["install", package])
+
+    @staticmethod
+    def installPackages(packages: list):
+        """
+        Install packages. (Blocked)
+        :param packages: list package names
+        :return: None
+        """
+        packages.insert(0, "install")
+        pip.main(packages)
 
 
 class Path:
@@ -89,3 +98,13 @@ class MetaData:
             if not i.startswith("__") and not callable(getattr(self, i)):
                 ret_dict[i] = getattr(self, i)
         return ret_dict
+
+
+if __name__ == "__main__":
+    rms = """
+uvicorn~=0.30.5
+fastapi~=0.112.0
+requests~=2.32.3
+click~=8.1.7
+"""
+    Utils.installPackages(rms.strip().split("\n"))
