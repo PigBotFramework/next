@@ -23,7 +23,8 @@ pluginsManager = None
 
 def setup(_name):
     """
-    Initialize PBF. **Must be called before importing any driver.**
+    Initialize PBF.<br>
+    **Must be called before importing any driver.**
     :return: None
     """
     logger.debug(f"Setup __name__: {_name}")

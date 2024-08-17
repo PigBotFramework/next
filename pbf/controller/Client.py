@@ -11,7 +11,7 @@ import requests
 class Client:
     def __init__(self, event: Event = None):
         """
-        初始化Client。
+        初始化Client。<br>
         使用request_by_event方法时，需要传入Event对象。
         :param event: Event or None
         :return: None
@@ -74,7 +74,7 @@ class Client:
 class Msg(Client):
     def __init__(self, *messages, event: Event = None):
         """
-        初始化Msg。
+        初始化Msg。<br>
         若使用send方法发送消息，需要传入Event对象。
         :param messages: *list 消息列表。元素可以是str或Statement对象。str中可以包含CQ码，会自动转为Statement对象。
         :param event: Event (可选)Event对象
@@ -102,7 +102,7 @@ class Msg(Client):
 
     def send(self, retry: int = 0, image: bool = True):
         """
-        发送消息。
+        发送消息。<br>
         需要在初始化时传入Event对象，会自动判断发送到群或私聊。
         :param retry: int (可选)重试次数
         :param image: bool (可选)是否尝试发送图片
@@ -137,7 +137,7 @@ class Msg(Client):
 
     def send_to(self, user_id: int = None, group_id: int = None):
         """
-        发送消息到指定用户或群。
+        发送消息到指定用户或群。<br>
         注意：user_id和group_id至少指定一个，都指定时优先向用户ID发送。
         :param user_id: (可选)用户ID
         :param group_id: (可选)群ID

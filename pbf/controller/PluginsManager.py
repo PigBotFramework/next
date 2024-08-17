@@ -82,12 +82,14 @@ class PluginsManager:
     def checkDependency(self, plugins: dict):
         """
         Plugins dependencies struct:
+        ```
         {
             "plugin_name": {
                 "upper": 1,
                 "lower": 1
             }
         }
+        ```
         :param plugins: dict Plugins dependencies
         :return: bool, str
         """
