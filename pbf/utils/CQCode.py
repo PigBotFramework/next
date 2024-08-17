@@ -80,6 +80,6 @@ class CQCode:
 
 
 if __name__ == "__main__":
-    cq_code = CQCode("[CQ:face,id=54][CQ:image,url=azazaz,az=abab]")
+    cq_code = CQCode("[CQ:face,id=54][CQ:image,url=url_test,arg=arg_test]")
     print(cq_code.getArr())
     print(cq_code.get("az"))

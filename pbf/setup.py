@@ -80,7 +80,7 @@ class Debug:
                 }
             ],
             "alt_message": "test arg1",
-            "user_id": "sasdad",
+            "user_id": "123test",
             "qq.nickname": "海阔天空"
         }
         """)
@@ -106,5 +106,5 @@ class Debug:
         from .controller.Client import Msg
         from .controller.Data import Event
         from .statement.FaceStatement import FaceStatement
-        msg = Msg("asfsdaf", FaceStatement(123), event=Event(**{"group_id": 871260826}))
+        msg = Msg("123test", FaceStatement(123), event=Event(**{"group_id": 871260826}))
         logger.debug(msg.send(image=False))
