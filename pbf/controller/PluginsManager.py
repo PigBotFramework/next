@@ -37,7 +37,7 @@ class PluginsManager:
         """
         # 销毁所有self.plugins中的对象
         for key, _ in self.plugins.items():
-            self.disable(key)
+            self.disable(key, pop_flag=False)
         # 清空self.plugins
         self.plugins.clear()
         # 销毁Api
@@ -52,7 +52,7 @@ class PluginsManager:
         """
         self.clearPlugins()
         for plugin in os.listdir(self.path):
-            if plugin.startswith("__"):
+            if plugin.startswith("__") or plugin.startswith("."):
                 continue
             if plugin.endswith(".py"):
                 plugin = plugin[:-3]
@@ -117,7 +117,7 @@ class PluginsManager:
             return self.api[plugin]
         raise NoApiError(f"Plugin `{plugin}` not found or has no API")
 
-    def disable(self, plugin: str):
+    def disable(self, plugin: str, pop_flag: bool=True):
         """
         Disable the plugin.
         :param plugin: str Plugin name
@@ -130,9 +130,10 @@ class PluginsManager:
                 pass
             except Exception:
                 logger.warning(f"Plugin `{plugin}` failed to load `_exit` function: {traceback.format_exc()}")
-            self.plugins.pop(plugin)
-            if self.hasApi(plugin):
-                self.api.pop(plugin)
+            if pop_flag:
+                self.plugins.pop(plugin)
+                if self.hasApi(plugin):
+                    self.api.pop(plugin)
             ListenerManager.remove_listeners_by_plugin_name(plugin)
             logger.info(f"Plugin `{plugin}` disabled")
         else:
