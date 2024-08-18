@@ -81,6 +81,9 @@ class Msg(Client):
         """
         super().__init__(event)
         self.messages: list = list(messages)
+        if isinstance(self.messages[0], list) or isinstance(self.messages[0], tuple):
+            # 有的时候Msg(msg_list, event=event).send()忘加`*`（手动滑稽
+            self.messages = list(self.messages[0])
 
     def getParam(self):
         """
