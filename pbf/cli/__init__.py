@@ -3,6 +3,7 @@ import click
 import os
 import pathlib
 import art
+import pbf
 
 art_txt = art.text2art("PBF CLI", font='larry3d')
 _template_repo = "https://github.com/PigBotFrameworkPlugins/"
@@ -44,6 +45,10 @@ def installPlugin(plugin_id: str, plugin_name: str, plugins_path: str):
 
 @click.group(
     help=f'{art_txt}\n'
+)
+@click.version_option(
+    version=pbf.version,
+    prog_name='PBF CLI'
 )
 def cli():
     pass
