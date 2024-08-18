@@ -62,6 +62,9 @@ class Handler:
                 "user_id": self.data.get("user_id")
             }
 
+        if "raw_message" in self.data:
+            self.data["message_list"] = self.data["raw_message"].split()
+
         event = Event(**self.data)
         self.event = event
         return event

@@ -10,6 +10,7 @@ class Event:
     group_id: int = None
     message: list = None
     raw_message: str = None
+    message_list: list = None
 
     def __init__(self, **event_data) -> None:
         """
