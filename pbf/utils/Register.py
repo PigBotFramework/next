@@ -7,13 +7,13 @@ from ..setup import logger, ListenerManager, pluginsManager
 def allPermission(_, event):
     return True
 
-def adminPermission(_, event):
+def adminPermission(event):
     role: str = event.sender.get("role", "member")
     if role == "admin" or role == "owner":
         return True
     return False
 
-def ownerPermission(_, event):
+def ownerPermission(event):
     if event.sender.get("role", "member") == "owner":
         return True
     return False

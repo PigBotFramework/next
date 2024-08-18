@@ -121,6 +121,7 @@ class PluginsManager:
         """
         Disable the plugin.
         :param plugin: str Plugin name
+        :param pop_flag: bool (可选)是否从`self.api`中删除，默认为`True`
         :return: None
         """
         if self.has(plugin):
