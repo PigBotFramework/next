@@ -4,10 +4,10 @@ from typing import List
 from ..setup import logger, ListenerManager, pluginsManager
 
 
-def allPermission(_, event):
+def allPermission(_, event):  # 默认权限，需要接收两个实参
     return True
 
-def adminPermission(event):
+def adminPermission(event):  # 在装饰器中指定的权限，只需要接受`event`参数
     role: str = event.sender.get("role", "member")
     if role == "admin" or role == "owner":
         return True

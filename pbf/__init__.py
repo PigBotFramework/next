@@ -206,11 +206,11 @@ def metaHandler(event: Event):
 
 
 # 更多内容
-关于插件及PBF开发的更多内容，请查阅 [docs](/pbf/docs.html)
+关于插件及PBF开发的更多内容，您可以点击左侧的模块列表查看。
 """
 
 
 # Version
-version = "5.0.9"
-version_code = 5009
+version = "5.0.10"
+version_code = 240830
 version_name = version
