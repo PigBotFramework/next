@@ -27,7 +27,7 @@ config.logs_level = "DEBUG"
 
 # Step 2: import setup and setup PBF
 from pbf import setup
-setup.setup()
+setup.setup(__name__)
 
 # Step 3: import driver and start it
 if __name__ == "__main__":
@@ -42,7 +42,7 @@ if __name__ == "__main__":
     - 您还可以在这部分设置更多的配置，详见[具体配置](/pbf/docs/config.html)
 - Step 2: 初始化PBF
     - `from pbf import setup`：导入PBF的初始化模块
-    - `setup.setup()`：初始化PBF
+    - `setup.setup(__name__)`：初始化PBF
 - Step 3: 导入驱动并启动
     - `from pbf.driver import Fastapi`：导入Fastapi驱动
     - `Fastapi.start()`：启动Fastapi驱动
@@ -211,6 +211,6 @@ def metaHandler(event: Event):
 
 
 # Version
-version = "5.0.10"
-version_code = 240830
+version = "5.0.11"
+version_code = 241013
 version_name = version
