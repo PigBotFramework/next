@@ -21,4 +21,4 @@ jobs:
         pip install pylint pylint-exit
     - name: Analysing the code with pylint
       run: |
-        pylint --disable=C,R --disable=W0122,W0123,W0611,E0602 $(git ls-files '*.py') || pylint-exit $?
+        pylint --disable=C,R $(git ls-files '*.py') || pylint-exit $?
