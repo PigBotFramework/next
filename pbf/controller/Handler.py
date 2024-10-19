@@ -1,7 +1,13 @@
 import json
+import re
+import inspect
+from typing import Union, Tuple
+
 from .Data import Event
 from ..utils.Logging import Logger
 from ..setup import ListenerManager
+from ..utils.Register import Base as RegisterBase
+from ..utils.Register import RegexMode
 
 logger = Logger(__name__)
 
@@ -80,15 +86,57 @@ class Handler:
                 if listener.permission(self.event):
                     listener.func(self.event)
 
+        def matchCommand(listener: RegisterBase) -> Tuple[bool, Union[None, re.Match]]:
+            raw_message = self.event.raw_message
+            # 如果 regex_mode 是 none，直接匹配前缀
+            if listener.regex_mode == RegexMode.none:
+                if raw_message.startswith(listener.name):
+                    return True, None
+                if listener.alias:
+                    if any(raw_message.startswith(alias) for alias in listener.alias):
+                        return True, None
+                return False, None
+
+            # 定义一个通用的正则匹配器，根据模式选择 re.match 或 re.search
+            def regex_matcher(pattern: str):
+                return (re.match if listener.regex_mode == RegexMode.match else re.search)(pattern, raw_message,
+                                                                                           listener.regex_flags)
+
+            # 使用正则表达式进行匹配
+            matchRes = regex_matcher(listener.name)
+            if matchRes:
+                return True, matchRes
+
+            if listener.alias:
+                for alias in listener.alias:
+                    matchRes = regex_matcher(alias)
+                    if matchRes:
+                        return True, matchRes
+
+            return False, None
+
+        def callFunction(func, origin_func, listener: RegisterBase, matchRes: Union[None, re.Match] = None):
+            sig = inspect.signature(origin_func)
+            num_params = len(sig.parameters)
+            if num_params == 0:
+                return func()
+            elif num_params == 1:
+                return func(self.event)
+            elif num_params == 2:
+                return func(self.event, listener)
+            elif num_params == 3:
+                return func(self.event, listener, matchRes)
+
         if self.event.type == "message":
             break_signal: bool = False
             listeners = ListenerManager.get_listeners_by_type("command")
             for key, value in listeners.items():
                 for listener in value:
-                    if self.event.raw_message.startswith(listener.name):
+                    res, matchRes = matchCommand(listener)
+                    if res:
                         break_signal = True
-                        if listener.permission(self.event):
-                            listener.func(self.event)
+                        if callFunction(listener.permission, listener.permission, listener, matchRes):
+                            callFunction(listener.func, listener.origin_func, listener, matchRes)
                         break
                 if break_signal:
                     break

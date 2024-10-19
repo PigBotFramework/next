@@ -1,10 +1,12 @@
+import re
+from enum import unique, Enum
 from functools import wraps
 from typing import List
 
 from ..setup import logger, ListenerManager, pluginsManager
 
 
-def allPermission(_, event):  # 默认权限，需要接收两个实参
+def allPermission(*_):  # 默认权限，需要接收两个实参
     return True
 
 def adminPermission(event):  # 在装饰器中指定的权限，只需要接受`event`参数
@@ -19,6 +21,13 @@ def ownerPermission(event):
     return False
 
 
+@unique
+class RegexMode(Enum):
+    match = "match"
+    search = "search"
+    none = "none"
+
+
 class Base:
     name: str = 'Command name'
     description: str = 'Command description'
@@ -29,6 +38,10 @@ class Base:
     enabled: bool = True
     type: str = 'command'
     func: callable = None
+    regex_mode: RegexMode = RegexMode.none
+    regex_flags = re.I
+    regex_data = None
+    origin_func: callable = None
 
     def __init__(self, **kwargs):
         """
@@ -50,6 +63,7 @@ class Base:
                 logger.error(f"Error in {self.type} `{self.name}`: {e}")
 
         func = try_except_wrapper
+        self.origin_func = origin_func
         self.func = func
 
         @wraps(func)

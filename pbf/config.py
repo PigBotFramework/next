@@ -1,3 +1,12 @@
+from enum import Enum, unique
+
+
+@unique
+class OneBotVersion(Enum):
+    v11 = "v11"
+    v12 = "v12"
+
+
 # Directories
 user_directory = ".pbf"
 
@@ -21,7 +30,7 @@ sql_driver = SqliteDatabase(Path.replace("{home}/data.db"))
 # Connect
 ob_access_token = "access_token"
 ob_uri = "http://localhost"
-ob_version = "v11"  # or "v12"
+ob_version = OneBotVersion.v11  # or "v12"
 
 # Plugins
 plugins_directory = "{home}/plugins"

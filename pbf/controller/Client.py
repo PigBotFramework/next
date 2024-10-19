@@ -143,11 +143,11 @@ class Client:
             "PBF-Client": f"PBFNext v{version}",
         }
         req = None
-        if config.ob_version == "v11":
+        if config.ob_version == config.OneBotVersion.v11:
             req = requests.post(f"{config.ob_uri}/{action}",
                                 json=data,
                                 headers=headers)
-        elif config.ob_version == "v12":
+        elif config.ob_version == config.OneBotVersion.v12:
             req = requests.post(f"{config.ob_uri}/",
                                 json={
                                     "action": action,
