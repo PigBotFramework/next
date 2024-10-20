@@ -12,7 +12,7 @@
 - 安装Python3.8及以上版本
 - 通过pip安装`PigBotFramework`模块
     ```shell
-    pip install PigBotFramework
+    pip install PigBotFramework --upgrade
     ```
 - 创建一个新的目录`/app`，用于存放PBF的配置文件和插件
 

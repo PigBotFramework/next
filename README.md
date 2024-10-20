@@ -20,7 +20,7 @@ PBF Next不再针对特定的OneBot实现进行适配，而是根据OneBot(v11/v
 - 插件化设计
 - 高效，编码简洁
 - 支持多种数据库
-- 提供 Web GUI 管理界面
+- 提供 Web GUI 管理界面（通过WebUI插件）
 - 支持多种Driver
 
 ## 安装
