@@ -59,7 +59,8 @@ class Handler:
         if "qq.nickname" in self.data:
             self.data["sender"] = {
                 "user_id": self.data["user_id"],
-                "nickname": self.data["qq.nickname"]
+                "nickname": self.data["qq.nickname"],
+                "role": self.data.get("sender", {}).get("role", "member")
             }
             del self.data["qq.nickname"]
 
