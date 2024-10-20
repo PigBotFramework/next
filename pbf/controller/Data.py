@@ -21,3 +21,6 @@ class Event:
             event_data = {}
         for key, value in event_data.items():
             setattr(self, key, value)
+
+    def __str__(self):
+        return f"<Event [{self.type}|{self.detail_type}] [{self.user_id}]: {self.raw_message}>"

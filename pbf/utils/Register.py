@@ -1,9 +1,13 @@
 import re
+import time
 from enum import unique, Enum
 from functools import wraps
 from typing import List
 
 from ..setup import logger, ListenerManager, pluginsManager
+
+
+class LimitExceedError(Exception): pass
 
 
 def allPermission(*_):  # 默认权限，需要接收两个实参
@@ -19,6 +23,45 @@ def ownerPermission(event):
     if event.sender.get("role", "member") == "owner":
         return True
     return False
+
+def default_callback(event, func):
+    raise LimitExceedError(f"User {event.user_id} exceeded the limit of {func.__name__}.")
+
+
+class Limit:
+    def __init__(self, duration, times, users, callback=None):
+        self.duration = duration
+        self.times = times
+        self.users = users
+        self.call_count = {}
+        self.callback = callback or default_callback
+
+    def __call__(self, origin_func):
+        @wraps(origin_func)
+        def limit_wrapper(*args, **kwargs):
+            # 假设第一个参数是event，且event有user_id属性
+            event = args[0] if args else None
+            user_id = event.user_id if event else None
+            current_time = time.time()
+
+            if user_id not in self.call_count:
+                self.call_count[user_id] = []
+
+            # 移除过期的调用记录
+            self.call_count[user_id] = [
+                timestamp for timestamp in self.call_count[user_id]
+                if current_time - timestamp < self.duration
+            ]
+
+            # 检查调用次数
+            if len(self.call_count[user_id]) < self.times:
+                self.call_count[user_id].append(current_time)
+                return origin_func(*args, **kwargs)
+            else:
+                # logger.warning(f"User {user_id} exceeded the limit of {origin_func.__name__}.")
+                return self.callback(event, origin_func)  # 调用回调函数
+
+        return limit_wrapper
 
 
 @unique
@@ -72,6 +115,9 @@ class Base:
             return func(*args, **kwargs)
 
         return wrapper
+
+    def __str__(self):
+        return f"<{self.type}Listener \"{self.name}\" call:{self.origin_func.__name__}>"
 
 
 class Command(Base):
