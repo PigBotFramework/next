@@ -29,10 +29,10 @@ def default_callback(event, func):
 
 
 class Limit:
-    def __init__(self, duration, times, users, callback=None):
+    def __init__(self, duration, times, user=None, callback=None):
         self.duration = duration
         self.times = times
-        self.users = users
+        self.user = user
         self.call_count = {}
         self.callback = callback or default_callback
 
@@ -43,6 +43,8 @@ class Limit:
             event = args[0] if args else None
             user_id = event.user_id if event else None
             current_time = time.time()
+            if self.user is not None:
+                user_id = self.user
 
             if user_id not in self.call_count:
                 self.call_count[user_id] = []
