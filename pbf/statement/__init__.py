@@ -62,13 +62,13 @@ class Statement:
     cqtype: str = None
     statementFlag: bool = False
 
-    def __init__(self, type: str, **kwargs) -> None:
+    def __init__(self, cqtype: str, **kwargs) -> None:
         """
         初始化Statement对象。
         :param type: str CQ类型
         :param kwargs: **dict CQ数据
         """
-        self.cqtype = type
+        self.cqtype = cqtype
         for i in kwargs:
             setattr(self, i, kwargs[i])
 
