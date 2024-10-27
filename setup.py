@@ -134,6 +134,6 @@ setup(
     ],
     # $ setup.py publish support.
     cmdclass={
-        'upload': UploadCommand,
+        'upload': UploadCommand,  # Run `python setup.py upload`
     },
 )
