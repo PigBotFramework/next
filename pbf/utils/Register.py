@@ -5,9 +5,7 @@ from functools import wraps
 from typing import List
 
 from ..setup import logger, ListenerManager, pluginsManager
-
-
-class LimitExceedError(Exception): pass
+from ..error import LimitExceedError
 
 
 def allPermission(*_):  # 默认权限，需要接收两个实参
@@ -30,6 +28,13 @@ def default_callback(event, func):
 
 class Limit:
     def __init__(self, duration, times, user=None, callback=None):
+        """
+        限制指令执行频率
+        :param duration: int 限制时间
+        :param times: int 限制次数
+        :param user: str/int/None (可选)用户ID
+        :param callback: Callable (可选)回调函数
+        """
         self.duration = duration
         self.times = times
         self.user = user

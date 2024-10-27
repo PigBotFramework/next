@@ -6,15 +6,15 @@ try:
     from ..utils.Logging import Logger
     from ..utils import Path, MetaData
     from ..setup import ListenerManager
+    from ..error import NoApiError
 except ImportError:
     from pbf.config import plugins_directory, plugins_disabled
     from pbf.utils.Logging import Logger
     from pbf.utils import Path, MetaData
     from pbf.setup import ListenerManager
+    from pbf.error import NoApiError
 
 logger = Logger(__name__)
-
-class NoApiError(Exception): pass
 
 
 class PluginsManager:

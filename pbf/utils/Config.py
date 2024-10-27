@@ -36,7 +36,7 @@ Hello, World!
 """
 
 
-class ConfigException(Exception): pass
+from ..error import ConfigError
 
 
 class Config:
@@ -56,7 +56,7 @@ class Config:
         `key`参数可以使用`.`分隔，例如`"WindowTitle.Enable"`，表示获取`data["WindowTitle"]["Enable"]`的值。
         :param key: str 键
         :param defaultValue: str (可选)默认值
-        :param passOnNotExists: bool (可选)是否忽略不存在的键，如果为False，会抛出`pbf.utils.Config.ConfigException`
+        :param passOnNotExists: bool (可选)是否忽略不存在的键，如果为False，会抛出`pbf.error.ConfigError`
         :return: any 数据
         """
         keyList = key.split(".")
@@ -68,7 +68,7 @@ class Config:
             originData = originData.get(item)
             if originData is None:
                 if not passOnNotExists:
-                    raise ConfigException(f"Unknown key {item} in {key}")
+                    raise ConfigError(f"Unknown key {item} in {key}")
                 else:
                     return defaultValue
             if data is None:
