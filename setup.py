@@ -126,14 +126,22 @@ setup(
     classifiers=[
         # Trove classifiers
         # Full list: https://pypi.python.org/pypi?%3Aaction=list_classifiers
+        "Development Status :: 5 - Production/Stable",
+        "Operating System :: OS Independent",
         'License :: OSI Approved :: Apache Software License',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: Implementation :: CPython'
+        "Programming Language :: Python :: 3 :: Only",
+        "Programming Language :: Python :: Implementation :: CPython",
+        "Programming Language :: Python :: Implementation :: PyPy",
     ],
     # $ setup.py publish support.
     cmdclass={
         'upload': UploadCommand,  # Run `python setup.py upload`
+    },
+    project_urls={
+        "Documentation": "https://pbfdocs.xzynb.top/",
+        "Source": 'https://github.com/PigBotFramework/next',
     },
 )
