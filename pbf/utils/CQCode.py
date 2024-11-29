@@ -1,5 +1,20 @@
-from ..statement import Statement
+"""
+# 使用示例
+```python
+cq_code = CQCode("[CQ:face,id=54][CQ:image,url=url_test,arg=arg_test]")
+print(cq_code.getArr())
+```
+输出如下
+```
+[{'type': 'face', 'data': {'id': '54'}}, {'type': 'image', 'data': {'url': 'url_test', 'arg': 'arg_test'}}]
+```
+"""
 
+
+try:
+    from ..statement import Statement
+except ImportError:  # debug
+    from pbf.statement import Statement
 
 class CQCode:
     content: str = None
@@ -82,4 +97,3 @@ class CQCode:
 if __name__ == "__main__":
     cq_code = CQCode("[CQ:face,id=54][CQ:image,url=url_test,arg=arg_test]")
     print(cq_code.getArr())
-    print(cq_code.get("az"))

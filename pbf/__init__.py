@@ -183,6 +183,7 @@ def metaHandler(event: Event):
     logger.info(f"meta handler was called: {event}")
     # do something
 ```
+您还可以设置指令别名、使用正则匹配、自定义权限、隐藏指令、添加调用限制等等，具体参见 pbf.docs
 
 ### Step 6: 重新加载插件
 如果您的PBF服务器已启动，您可以访问`{your_server_address}/plugins/load_all`来重新加载插件
@@ -212,6 +213,6 @@ def metaHandler(event: Event):
 
 
 # Version
-version = "5.0.11"
-version_code = 241013
+version = "5.0.12"
+version_code = 241129
 version_name = version

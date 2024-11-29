@@ -13,6 +13,7 @@
 - Model的使用 (Peewee)
 - 工具模块的进阶使用
 - 监听器注册 (`pbf.utils.Register`)
+- Limit限制器的使用
 - Driver驱动 *
 
 ### To be continued...
